@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<form class="formMISH"  method="post" action="">
+    <p>
+        <label for="timelineName" class="label">Nombre del Timeline:</label>
+        <input type="text" name="newEventName" id="timelineName">
+    </p>
+    
+    <div id="errorSaveTimeline" class="ui-widget">
+        <div class="ui-state-error" id="saveTimelineErrorMsg">
+            <span class="ui-icon ui-icon-alert"
+                  style="float: left; margin-right: .3em;">
+            </span>
+        </div>
+    </div>
+
+    <p>
+        <input type="button" value="Guardar Timeline" id="buttonSaveTimeline" onclick="guardarTimelineClic()">
+    </p>
+
+    <p>
+        <input type="button" value="Cancelar" id="saveTimelineCancel">
+    </p>
+    
+     <!--mensaje de error para creación de usuarios-->
+    
+</form>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Ejemplo1</title>
+
+    <!-- Importación de estilos -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="css/StyleMain.css"/>
+    <link type="text/css" rel="stylesheet" href="css/mish-baseTheme-01/jquery-ui-1.10.4.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="css/jquery.gridster.css"/>
+
+    <!-- Importación de archivos JavaScript -->
+    <script type="text/javascript" src="javascript/jquery_1_11.js" language="JavaScript"></script>
+    <script type="text/javascript" src="javascript/eventHandler.js" language="JavaScript"></script>
+    <script type="text/javascript" src="javascript/jquery-ui-1.10.4.custom.min.js" language="JavaScript"></script>
+    <script type="text/javascript" src="modernizr-1.6.min.js" language="JavaScript"></script>
+    <script type="text/javascript" src="momentjs.js" language="JavaScript"></script>
+    <script type="text/javascript" src="javascript/calculations.js" language="JavaScript"></script>
+    <script type="text/javascript" src="javascript/timelineControl.js" language="JavaScript"></script>
+    <script type="text/javascript" src="javascript/canvasControl.js" language="JavaScript"></script>
+    <script type="text/javascript" src="javascript/main.js" language="JavaScript"></script>
+    <script type="text/javascript" src="javascript/dataBaseOperations.js" language="JavaScript"></script>
+    <script type="text/javascript" src="javascript/jquery.gridster.js" language="JavaScript"></script>
+
+
+</head>
+<body>
+    <div id="header">
+        <h1>MISH</h1>
+        <h3>Mi Sitio en la Historia</h3>
+        <div class="headerButtons">
+            <ul>
+                <li><a href="#" id="buttLogIn">Soy usuario</a></li>
+                <li><a href="#" id="buttCreateUser">Nuevo usuario</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="work-area-container">
+        <div id="work-area-handler" class="ui-draggable">
+            <div class="work-area-handler-sq" id="valorid"></div>
+        </div>
+        <div id="canvas-container" oncontextmenu="return false">
+            <canvas id="maincanvas" oncontextmenu="return false">
+            </canvas>
+        </div>
+
+        <div id="timeline-container">
+        </div>
+    </div>
+
+    <!-- Menús contextuales -->
+    <div id="canvasContextMenu" oncontextmenu="return false">
+        <ul id="menu">
+            <li><a href="#" id ="linkCreateEvent" >Crear evento</a></li>
+            <li>
+                <a href="#">Seleccionar esquema de color</a>
+                <ul>
+                    <li><a href="#">Esquema 1</a></li>
+                    <li><a href="#">Esquema 2</a></li>
+                    <li><a href="#">Esquema 3</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div id="footer">
+        <div class="footerButtons">
+            <ul>
+                <li><a href="#" onclick="guardarTimeline()">Guardar</a></li>
+                <li><a href="#">Nuevo periodo</a></li>
+                <li><a href="#">Nuevo indicador</a></li>
+                    <li><a href="#">Nuevo evento</a></li>
+                <li><a href="#">Elegir colores</a></li>
+                <li><a href="#">Organizar mis datos</a></li>
+            </ul>
+            <ul class="seconda">
+                <li><a href="#" onclick="nuevaTimeline()">Nueva línea</a></li>
+                <li id="zoom"></li>
+            </ul>
+        </div>
+    </div>
+    <div id="loaded-timelines-container">
+        <div id="user-timelines-overlay" class="ui-widget-overlay">
+
+    </div>
+
+
+        <div id="user-timelines-loaded" class="gridster">
+            <div id="user-timelines-loaded-title"><h1><span>Estas son tus líneas de tiempo guardadas</span></h1></div>
+            <ul id="user-timelines-loaded-ul"></ul>
+        </div></div>
+
+
+    <div id="dialog-form">
+        <!--aquí va el formulario de crear nuevo evento-->
+    </div>
+
+    <div id="dialog-form-user">
+        <!--aquí va el formulario de crear nuevo usuario-->
+    </div>
+
+    <div id="dialog-form-logIn">
+        <!--aquí va el formulario de ingreso de usuario registrado-->
+    </div>
+
+    <div id="dialog-form-newTimeline">
+        <!--aquí va el formulario de ingreso de nuevo timeline-->
+    </div>
+</body>
+</html>

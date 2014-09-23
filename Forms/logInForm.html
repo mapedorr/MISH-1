@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<form class="formMISH"  method="post" action="">
+    <p>
+        <label for="registeredUserName" class="label">Nombre del Usuario:</label>
+        <input type="text" name="regUserName" id="registeredUserName">
+    </p>
+    <p>
+        <label for="registeredUserPassword" class="label">Password</label>
+        <input type="text" name="regUserPassword" id="registeredUserPassword">
+    </p>
+
+    <!--mensaje de error para login-->
+    <div id="errorLogin" class="ui-widget">
+        <div class="ui-state-error" id="logInErrorMsg">
+
+            <span class="ui-icon ui-icon-alert"
+                  style="float: left; margin-right: .3em;">
+            </span>
+                
+        </div>
+    </div> 
+
+    <p>
+        <input type="button" value="Ingresar" id="buttonLogIn" onclick="usuarioLogIn()">
+    </p>
+
+    <p>
+        <input type="button" value="Cancelar" id="loginCancel">
+    </p>
+</form>
+
+</body>
+</html>

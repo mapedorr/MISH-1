@@ -1,0 +1,72 @@
+<timeline>
+	<!-- General Information -->
+	<timeline_id>5248756</timeline_id>
+	<color_scheme>01</color_scheme>
+	<user_id>5168498</user_id>
+	<creation_date>21-01-2014</creation_date>
+	<pos_x>180</pos_x>
+    <pos_y>50</pos_y>
+    <line_start_date>01-11-2012</line_start_date>
+    <line_end_date>10-12-2013</line_end_date>
+	<zoom_level>100</zoom_level>
+
+	
+	<!-- Events definition -->
+	<events>
+		<event>
+			<id>584</id>
+	        <title>Cualquiera</title>
+	        <text>Este es un evento cualquiera en la historia. Sí.</text>
+	        <date>05-11-2012</date>
+	        <image></image>
+	        <urllink></urllink>
+		</event>
+		<event>
+			<id>585</id>
+	        <title>Cualquiera 2</title>
+	        <text>Este es otro evento cualquiera en la historia</text>
+	        <date>08-05-2013</date>
+	        <image></image>
+	        <urllink></urllink>
+		</event>
+        <event>
+            <id>586</id>
+            <title>Cualquiera 3</title>
+            <text>Este es otro evento cualquiera en la historia</text>
+            <date>10-12-2013</date>
+            <image></image>
+            <urllink></urllink>
+        </event>
+	</events>
+		
+	<periods>
+		<period>
+			<id>0001</id>
+			<name>Periodo1</name>
+		    <startdate>01-12-1989</startdate>
+		    <enddate>01-01-1990</enddate>
+		    <color>CE0000</color>
+		</period>
+	</periods>
+
+	<indicators>
+		<indicator>
+			<id>51684</id>
+		    <title>Vegetaci�n terrestre</title>
+			<max></max>
+			<min></min>
+		    <points>
+				<point>
+					<indicatordate>15-06-1989</indicatordate>
+					<id_event></id_event>
+					<indicator_value>452</indicator_value>
+				</point>
+				<point>
+					<indicatordate>26-02-1990</indicatordate>
+					<id_event>584</id_event>
+					<indicator_value>364</indicator_value>
+				</point>
+		    </points>
+		</indicator>
+	</indicators>
+</timeline>

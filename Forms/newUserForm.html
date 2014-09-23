@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<form class="formMISH"  method="post" action="">
+    <p>
+        <label for="userName" class="label">Nombre del Usuario:</label>
+        <input type="text" name="newUserName" id="userName">
+    </p>
+    <p>
+        <label for="userPassword" class="label">Password</label>
+        <input type="text" name="newUserPassword" id="userPassword">
+    </p>
+    <p>
+        <label for="userPasswordDos" class="label">Repite tu Password</label>
+        <input type="text" name="newUserPasswordDos" id="userPasswordDos">
+    </p>
+    
+    <!--mensaje de error para creación de usuarios-->
+    <div id="errorCreateUser" class="ui-widget">
+        <div class="ui-state-error" id="createUserErrorMsg">
+            <span class="ui-icon ui-icon-alert"
+                  style="float: left; margin-right: .3em;">
+            </span>
+        </div>
+    </div>
+    
+    
+    
+    <p>
+        <input type="button" value="Crear Usuario" id="buttonCreateUser" onclick="createUserButtAction()">
+    </p>
+
+    <p>
+        <input type="button" value="Cancelar" id="newUserCancel">
+    </p>
+</form>
+
+</body>
+</html>
