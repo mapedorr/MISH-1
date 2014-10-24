@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<form id="newUserForm" class="formMISH" method="post">
+    <div class="formMISH-row">
+        <div class="formMISH-fieldDiv-100">
+            <input type="text" name="newUserName" id="userName" class="formMISH-field" placeholder="Tu nombre de usuario">
+        </div>
+    </div>
+    <div class="formMISH-row">
+        <div class="formMISH-fieldDiv-100">
+            <input type="password" name="newUserPassword" id="userPassword" class="formMISH-field" placeholder="Tu contraseña">
+        </div>
+    </div>
+    <div class="formMISH-row">
+        <div class="formMISH-fieldDiv-100">
+            <input type="password" name="newUserPasswordDos" id="userPasswordDos" class="formMISH-field" placeholder="Repite tu contraseña">
+        </div>
+    </div>
+    
+    <!--mensaje de error para creación de usuarios-->
+    <div id="errorCreateUser" class="ui-widget">
+        <div id="createUserErrorMsg" class="ui-state-error">
+            <span class="ui-icon ui-icon-alert"
+                  style="float: left; margin-right: .3em;">
+            </span>
+            <strong>Error(es):</strong>
+            <ul></ul>
+        </div>
+    </div>
+    
+    <div class="formMISH-row">
+        <input id="buttonCreateUser" type="button" value="Crear Usuario" class="formMISH-button formMISH-col-1">
+        <input id="newUserCancel" type="button" value="Cancelar" class="formMISH-button formMISH-col-1">
+    </div>
+</form>

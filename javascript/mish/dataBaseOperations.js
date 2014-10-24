@@ -34,56 +34,28 @@ function readJSonUser() {
     });
 }
 
-
+/**
+ * Function that creates a new event in the timeline
+ * 
+ * @returns {undefined}
+ */
 function createMISHEvent() {
+    var eventsArrayLastPos = eventsJsonElement.length;
+    //Get the ID that the event will have
+    var eventID = (eventsArrayLastPos === 0) ? 1 : eventsJsonElement[eventsArrayLastPos - 1].id + 1;
 
-    if ($("#eventName").val() == "") {
-        $('#newEventErrorMsg').empty();
-        newEvent_error = "Debe darle un nombre al evento";
-        $('#newEventErrorMsg').append("" + newEvent_error);
-        $('#errorNewEvent').show();
-    }
-    else {
-        if ($("#eventDate").val() == "") {
-            $('#newEventErrorMsg').empty();
-            newEvent_error = "Debe ingresar una fecha";
-            $('#newEventErrorMsg').append("" + newEvent_error);
-            $('#errorNewEvent').show();
-        }
-
-
-        else
-        {
-            var eventsArrayLastPos = eventsJsonElement.length == 0 ? 0 : eventsJsonElement.length;
-            var eventID = (eventsArrayLastPos == 0) ? 1 : eventsJsonElement[eventsArrayLastPos - 1].id + 1;
-
-            //Este objeto lo creamos para guardar la información del formulario en el arreglo que creamos como eventsJsonElement.
-            var newEvent = {
-                "id": eventID,
-                "title": $("#eventName").val(),
-                "text": "Evento",
-                "date": $("#eventDate").val(),
-                "image": $("#eventImg").val(),
-                "urllink": ""
-            };
-            //Ahora adherimos un nuevo evento a ese arreglo local NO AL ARCHIVO
-            eventsJsonElement [eventsJsonElement.length] = newEvent;
-            //usamos el archivo addEvent para enviar la información del nuevo evento y que este lo ponga en el archivo json
-            /* $.ajax({
-             "url":"PHP/addEvent.php",
-             "type":"POST",
-             "data":{
-             //"idtemp" : newEvent.id
-             "eventNew": JSON.stringify(newEvent)
-             },
-             "dataType":"JSON"
-             }).done(function(data){
-             confirm(data);
-             console.log(data);
-             });*/
-            $('#dialog-form').dialog('close');
-        }
-    }
+    //Create an event object with the info of the new event
+    var newEvent = {
+        "id": eventID,
+        "title": $("#eventName").val(),
+        "text": "Evento",
+        "date": $("#eventDate").val(),
+        "image": $("#eventImg").val(),
+        "urllink": ""
+    };
+    
+    //Add the created event object to the array of events of the timeline
+    eventsJsonElement [eventsJsonElement.length] = newEvent;
 }
 
 
@@ -114,7 +86,7 @@ function colorSchemeXMLSuccessRead(xml) {
 
 
 
-    drawTimeline();
+    drawTimeRuler();
 }
 
 function colorSchemeXMLReadError() {
@@ -216,7 +188,7 @@ function guardarTimelineOnJson() {
                 confirm(data);
                 console.log(data);
             });
-            $('#dialog-form-newTimeline').dialog('close');
+            $('#newTimelineDialog').dialog('close');
         }
         else {
             confirm("Debe crear al menos un evento");

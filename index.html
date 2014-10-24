@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>Ejemplo1</title>
+    <title>MISH</title>
 
-    <!-- Importación de estilos -->
+    <!-- Load Style Files -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link type="text/css" rel="stylesheet" href="css/StyleMain.css"/>
+    <link type="text/css" rel="stylesheet" href="css/MISH.css"/>
     <link type="text/css" rel="stylesheet" href="css/mish-baseTheme-01/jquery-ui-1.10.4.custom.css"/>
     <link type="text/css" rel="stylesheet" href="css/jquery.gridster.css"/>
 
-    <!-- Importación de archivos JavaScript -->
-    <script type="text/javascript" src="javascript/jquery_1_11.js" language="JavaScript"></script>
-    <script type="text/javascript" src="javascript/eventHandler.js" language="JavaScript"></script>
-    <script type="text/javascript" src="javascript/jquery-ui-1.10.4.custom.min.js" language="JavaScript"></script>
-    <script type="text/javascript" src="modernizr-1.6.min.js" language="JavaScript"></script>
-    <script type="text/javascript" src="momentjs.js" language="JavaScript"></script>
-    <script type="text/javascript" src="javascript/calculations.js" language="JavaScript"></script>
-    <script type="text/javascript" src="javascript/timelineControl.js" language="JavaScript"></script>
-    <script type="text/javascript" src="javascript/canvasControl.js" language="JavaScript"></script>
-    <script type="text/javascript" src="javascript/main.js" language="JavaScript"></script>
-    <script type="text/javascript" src="javascript/dataBaseOperations.js" language="JavaScript"></script>
-    <script type="text/javascript" src="javascript/jquery.gridster.js" language="JavaScript"></script>
-
+    <!-- Load JavaScript Files -->
+    <!-- Libraries -->
+    <script type="text/javascript" src="javascript/lib/jquery_1_11.js"></script>
+    <script type="text/javascript" src="javascript/lib/jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript" src="javascript/lib/modernizr-1.6.min.js"></script>
+    <script type="text/javascript" src="javascript/lib/momentjs.js"></script>
+    <script type="text/javascript" src="javascript/lib/jquery.gridster.js"></script>
+    <script type="text/javascript" src="javascript/lib/Debugger.js"></script>
+    <!-- MISH -->
+    <script type="text/javascript" src="javascript/mish/messages.js"></script>
+    <script type="text/javascript" src="javascript/mish/utilities.js"></script>
+    <script type="text/javascript" src="javascript/mish/calculations.js"></script>
+    <script type="text/javascript" src="javascript/mish/externalPagesLoader.js"></script>
+    <script type="text/javascript" src="javascript/mish/eventHandler.js"></script>
+    <script type="text/javascript" src="javascript/mish/timelineControl.js"></script>
+    <script type="text/javascript" src="javascript/mish/canvasControl.js"></script>
+    <script type="text/javascript" src="javascript/mish/dataBaseOperations.js"></script>
+    <script type="text/javascript" src="javascript/mish/main.js"></script>
 
 </head>
 <body>
+    <!-- HEADER -->
     <div id="header">
-        <h1>MISH</h1>
-        <h3>Mi Sitio en la Historia</h3>
+        <h1>M</h1>
+        <!-- <h3>Mi Sitio en la Historia</h3> -->
         <div class="headerButtons">
             <ul>
                 <li><a href="#" id="buttLogIn">Soy usuario</a></li>
@@ -36,34 +42,20 @@
         </div>
     </div>
 
+    <!-- BODY -->
     <div id="work-area-container">
         <div id="work-area-handler" class="ui-draggable">
-            <div class="work-area-handler-sq" id="valorid"></div>
+            <div id="work-area-handler-sq"></div>
         </div>
+        
         <div id="canvas-container" oncontextmenu="return false">
-            <canvas id="maincanvas" oncontextmenu="return false">
-            </canvas>
+            <canvas id="maincanvas" oncontextmenu="return false"></canvas>
         </div>
 
-        <div id="timeline-container">
-        </div>
+        <div id="timeline-container"></div>
     </div>
 
-    <!-- Menús contextuales -->
-    <div id="canvasContextMenu" oncontextmenu="return false">
-        <ul id="menu">
-            <li><a href="#" id ="linkCreateEvent" >Crear evento</a></li>
-            <li>
-                <a href="#">Seleccionar esquema de color</a>
-                <ul>
-                    <li><a href="#">Esquema 1</a></li>
-                    <li><a href="#">Esquema 2</a></li>
-                    <li><a href="#">Esquema 3</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
+    <!-- FOOTER -->
     <div id="footer">
         <div class="footerButtons">
             <ul>
@@ -80,32 +72,28 @@
             </ul>
         </div>
     </div>
+    
+    <!-- EXTERNAL PAGES -->
+    <div id="canvasContextMenu" oncontextmenu="return false"></div>
+    
     <div id="loaded-timelines-container">
-        <div id="user-timelines-overlay" class="ui-widget-overlay">
-
-    </div>
-
-
+        <div id="user-timelines-overlay" class="ui-widget-overlay"></div>
         <div id="user-timelines-loaded" class="gridster">
-            <div id="user-timelines-loaded-title"><h1><span>Estas son tus líneas de tiempo guardadas</span></h1></div>
+            <div id="user-timelines-loaded-title">
+                <h1>
+                    <span>Estas son tus líneas de tiempo guardadas</span>
+                </h1>
+            </div>
             <ul id="user-timelines-loaded-ul"></ul>
         </div></div>
 
-
-    <div id="dialog-form">
-        <!--aquí va el formulario de crear nuevo evento-->
-    </div>
-
-    <div id="dialog-form-user">
-        <!--aquí va el formulario de crear nuevo usuario-->
-    </div>
-
-    <div id="dialog-form-logIn">
-        <!--aquí va el formulario de ingreso de usuario registrado-->
-    </div>
-
-    <div id="dialog-form-newTimeline">
-        <!--aquí va el formulario de ingreso de nuevo timeline-->
-    </div>
+    <!--DIV for the Create New Event page-->
+    <div id="newEventDialog"></div>
+    <!--DIV for the Create New User page-->
+    <div id="newUserDialog"></div>
+    <!--DIV for Log In page-->
+    <div id="logInDialog"></div>
+    <!--DIV for New Timeline page-->
+    <div id="newTimelineDialog"></div>
 </body>
 </html>
