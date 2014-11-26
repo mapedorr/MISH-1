@@ -147,8 +147,8 @@ function canvasApp(x,y) {
 
     function onMouseMove(e){
         mouseX = e.clientX - theCanvas.offsetLeft;
-        mouseY = e.clientY - theCanvas.offsetTop;
-    }
+    mouseY = e.clientY - theCanvas.offsetTop;
+}
 
     function onMouseClick(e){
         //var imageData = context.getImageData(mouseX,mouseY,10,10);

@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>javascript/timelineControl.js</url>
+            <bookmark id="1">
+                <name/>
+                <line>59</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/MISH/javascript/dataBaseOperations.js</file>
-            <file>file:/C:/xampp/htdocs/MISH/PHP/openTimeline.php</file>
-            <file>file:/C:/xampp/htdocs/MISH/index.html</file>
-            <file>file:/C:/xampp/htdocs/MISH/javascript/main.js</file>
-            <file>file:/C:/xampp/htdocs/MISH/PHP/cuentaUsuarios.php</file>
-            <file>file:/C:/xampp/htdocs/MISH/JSON/userTest.json</file>
+            <file>file:/D:/development/servers/xampp/htdocs/MISH/javascript/mish/main.js</file>
+            <file>file:/D:/development/servers/xampp/htdocs/MISH/index.html</file>
+            <file>file:/D:/development/servers/xampp/htdocs/MISH/javascript/mish/timelineControl.js</file>
+            <file>file:/D:/development/servers/xampp/htdocs/MISH/javascript/mish/eventHandler.js</file>
         </group>
     </open-files>
 </project-private>
