@@ -9,7 +9,7 @@ var mishGA = {
   timeRulerXPos: 0,
   /*Attributes for zoom control*/
   currentZoomLevel: 6,
-  currentZoomSubLevel: -1,
+  currentZoomSubLevel: 2,
   zoomData: null
 };
 

@@ -81,7 +81,9 @@ function assignMouseEventsListeners() {
  * @returns {undefined}
  */
 function mouseScrollEvent(e) {
+  var zoomSubLevelChange = false;
   var zoomLevelChange = false;
+
   //cross-browser wheel delta
   var e = window.event || e; //old IE support
   var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
@@ -94,22 +96,35 @@ function mouseScrollEvent(e) {
 
   if(mishGA.zoomData.id !== mishGA.currentZoomSubLevel
       || mishGA.zoomData.parentId !== mishGA.currentZoomLevel){
+    //The ZOOM SUB LEVEL changes, do something
+    zoomSubLevelChange = true;
+    console.log("ZOOM SUB LEVEL CHANGE");
 
     if(mishGA.zoomData.id === 'PREV'){
       //It's time to change the Zoom LEVEL
+      //The ZOOM LEVEL changes, do something
+      zoomLevelChange = true;
+      console.log("ZOOM LEVEL CHANGE");
+
       mishGA.currentZoomLevel--;
+      mishGA.currentZoomSubLevel = zoomSubLevels[zoomLevels[mishGA.currentZoomLevel]].lastSubLevel;
+      cellWidth = null;
       mishGA.zoomData = getZoomData();
     }else if(mishGA.zoomData.id === 'NEXT'){
+      //The ZOOM LEVEL changes, do something
+      zoomLevelChange = true;
+      console.log("ZOOM LEVEL CHANGE");
+
       //It's time to change the Zoom LEVEL
       mishGA.currentZoomLevel++;
+      mishGA.currentZoomSubLevel = zoomSubLevels[zoomLevels[mishGA.currentZoomLevel]].initialSubLevel;
+      cellWidth = null;
       mishGA.zoomData = getZoomData();
     }
 
     mishGA.currentZoomSubLevel = mishGA.zoomData.id;
     mishGA.currentZoomLevel = mishGA.zoomData.parentId;
-    //The ZOOM LEVEL changes, do something
-    zoomLevelChange = true; // This will be used for optimization later...
-    console.log("ZOOM LEVEL CHANGE");
+
     if(delta > 0){
       cellWidth = mishGA.zoomData.initialCellWidth;
     }else{
@@ -119,9 +134,14 @@ function mouseScrollEvent(e) {
 
   var centerCellObj = findNearestCellToCenter();
 
-  if(zoomLevelChange){
+  if(zoomSubLevelChange){
     //Create a moment with the date of the nearest cell to the center
     var nearestCellToCenterDate = moment('' + centerCellObj.idText, "DDMMYYYY");
+
+    if(zoomLevelChange){
+      mishGA.timeRulerGroups = [];
+      clearTimeline();
+    }
 
     //Call the function that fill the time ruler
     mishGA.zoomData.fillTimeRuler(nearestCellToCenterDate,centerCellObj.posX);

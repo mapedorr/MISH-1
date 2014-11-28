@@ -14,7 +14,49 @@ var zoomSubLevels = {
   "MILLENNIUM":{},
   "CENTURY":{},
   "DECADE":{},
-  "YEAR":{},
+  "YEAR":{
+    0:{
+      id:'PREV',
+      parentId:5,
+      initialCellWidth:1,
+      lastCellWidth:1
+    }
+    ,1:{
+      id:1,
+      parentId:5,
+      initialCellWidth:20,
+      lastCellWidth:60,
+      fillTimeRuler:function(nearestCellToCenterDate,nearestCellToCenterPosX){
+        fillTimeRulerMonths(nearestCellToCenterDate,nearestCellToCenterPosX);
+      },zoomTimeRuler:function(nearestCellToCenterObj,mouseScrollDelta){
+        zoomTimeRulerMonths(nearestCellToCenterObj,mouseScrollDelta);
+      },addGroupToTimeruler:function(evaluateAdditionToRight){
+        addGroupToTimerulerMonths(evaluateAdditionToRight);
+      }
+    },2:{
+      id:'NEXT',
+      parentId:5,
+      initialCellWidth:61,
+      lastCellWidth:61
+    },
+    $scrollAmount:0,
+    $currentSubLevel:0,
+    initialSubLevel:1,
+    lastSubLevel:1
+    ,get zoomSubLevel(){
+      return this[this.$currentSubLevel];
+    }
+    ,set currentSubLevel(levelID){
+      this.$currentSubLevel = levelID;
+    },set scrollAmount(newScrollAmount){
+      this.$scrollAmount = newScrollAmount;
+      if(this.$scrollAmount < this[this.$currentSubLevel].initialCellWidth){
+        this.$currentSubLevel--;
+      }else if(this.$scrollAmount > this[this.$currentSubLevel].lastCellWidth){
+        this.$currentSubLevel++;
+      }
+    }
+  },
   "MONTH":{
     0:{
       id:'PREV',
@@ -55,7 +97,8 @@ var zoomSubLevels = {
     },
     $scrollAmount:0,
     $currentSubLevel:0,
-    initialSubLevel:2
+    initialSubLevel:1,
+    lastSubLevel:2
     ,get zoomSubLevel(){
       return this[this.$currentSubLevel];
     }
@@ -83,7 +126,7 @@ function getZoomData(){
   var zoomSubLevelObj = zoomSubLevels[zoomLevels[mishGA.currentZoomLevel]];
   if(cellWidth === null
       || cellWidth === undefined){
-    zoomSubLevelObj.currentSubLevel = zoomSubLevelObj.initialSubLevel;
+    zoomSubLevelObj.currentSubLevel = mishGA.currentZoomSubLevel;
   }else{
     zoomSubLevelObj.scrollAmount = cellWidth;
   }
