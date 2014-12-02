@@ -1,16 +1,15 @@
-
 /**
  * Function that fill the time ruler
  *
  * @param {momnet} dateOfReference
  * @returns {undefined}
  */
-function fillTimeRulerMonths(dateOfReference,xPosDiff) {
+function fillTimeRulerMonths(dateOfReference, xPosDiff) {
 
   //Calculate the center of the window
   var center = jQuery(window).width() / 2;
 
-  if(xPosDiff !== null){
+  if (xPosDiff !== null) {
     center -= center - xPosDiff;
   }
 
@@ -18,9 +17,9 @@ function fillTimeRulerMonths(dateOfReference,xPosDiff) {
   //1. Calculate the x position for the first group ('center' will be used in this operation)
   //2. Loop from 10 months before the center date till 10 months after the center date
 
-  var firstGroupDate = dateOfReference.clone().subtract(10,"years");
+  var firstGroupDate = dateOfReference.clone().subtract(10, "years");
 
-  var daysFromFirstGroup = dateOfReference.diff(firstGroupDate,"months");
+  var daysFromFirstGroup = dateOfReference.diff(firstGroupDate, "months");
   var initialXPos = ((( (daysFromFirstGroup + dateOfReference.date()) * cellWidth) - cellWidth) * -1) + (center);
 
   var groupToDraw = firstGroupDate.clone().startOf("year");
@@ -35,7 +34,7 @@ function fillTimeRulerMonths(dateOfReference,xPosDiff) {
         0,//Initial xPos of the inner cells
         groupToDraw,//startDate
         true,//drawSeparator
-        createRulerGroup(groupToDraw.format('YYYY'),//groupID
+        createRulerGroup(groupToDraw.format('MMYYYY'),//groupID
           widthOfGroup,
           xPositionOfGroup,
           true)//PUSH the group in the groups array
@@ -44,11 +43,11 @@ function fillTimeRulerMonths(dateOfReference,xPosDiff) {
       groupToDraw.add(1, "year");
     }
   } else {
-    mishGA.timeRulerGroups.forEach(function (value,index) {
+    mishGA.timeRulerGroups.forEach(function (value, index) {
       //Remove the cells in the group
       value.children('.date').remove();
 
-      var groupID = 'mish-cellsGroup-' + groupToDraw.format('YYYY') + '-' + (index + 1);
+      var groupID = 'mish-cellsGroup-' + groupToDraw.format('MMYYYY') + '-' + (index + 1);
       var widthOfGroup = 12 * cellWidth;
 
       value.attr('id', groupID);
@@ -203,14 +202,14 @@ function addGroupToTimerulerMonths(evaluateAdditionToRight) {
 function fillDateRangeMonths(begin, end, xPos, startDate, drawSeparator, groupID) {
   var daysToAdd = 0;
   for (var i = begin; i <= end; i++) {
-    var theDay = startDate.clone().add(daysToAdd,"months");
+    var theDay = startDate.clone().add(daysToAdd, "months");
     var cellID = theDay.format('MMYYYY');
     if (i === begin && drawSeparator === true) {
       createTimelineCell(cellID, xPos, separatorDateCssClass, theDay.format('YYYY'), groupID, cellWidth);
     } else {
       createTimelineCell(cellID, xPos, normalDateCssClass, theDay.format('MMMM'), groupID, cellWidth);
     }
-    daysToAdd ++;
+    daysToAdd++;
     xPos = xPos + cellWidth;
   }
 }
@@ -221,28 +220,28 @@ function fillDateRangeMonths(begin, end, xPos, startDate, drawSeparator, groupID
  * @param centerCellObj
  * @param delta
  */
-function zoomTimeRulerMonths(centerCellObj,delta){
+function zoomTimeRulerMonths(centerCellObj, delta) {
 //Assign the new WIDTH for each cell and each group and also the new LEFT position of each cell.
-  mishGA.timeRulerGroups.forEach(function (value,index) {
+  mishGA.timeRulerGroups.forEach(function (value, index) {
     var childCount = 0;
     var xPos = 0;
-    value.children(".date").each(function(){
+    value.children(".date").each(function () {
       jQuery(this).css({
-        "left" : xPos,
-        "width" : cellWidth + "px"
+        "left": xPos,
+        "width": cellWidth + "px"
       });
       xPos += cellWidth;
       childCount++;
     });
 
     var newGroupWidth = cellWidth * childCount;
-    value.css({"width" : newGroupWidth + "px"});
+    value.css({"width": newGroupWidth + "px"});
   });
 
   //Get other information needed for the operation
   var screenCenter = jQuery(window).width() / 2;
-  if(centerCellObj !== null
-    && centerCellObj.posX !== null){
+  if (centerCellObj !== null
+    && centerCellObj.posX !== null) {
     screenCenter -= screenCenter - centerCellObj.posX;
   }
   var lastCellWidth = cellWidth - delta;
@@ -254,12 +253,18 @@ function zoomTimeRulerMonths(centerCellObj,delta){
   var newTimeRulerXPos = 0;
 
   //Assign the new LEFT position for each group of the time ruler
-  mishGA.timeRulerGroups.forEach(function (value,index) {
-    if(index == 0){
+  mishGA.timeRulerGroups.forEach(function (value, index) {
+    if (index == 0) {
       newTimeRulerXPos = ( ( ( ( (oldTimeRulerXPos * cellWidth) / lastCellWidth ) + cellWidth ) + screenCenter ) - cellWidth );
       newTimeRulerXPos -= mishGA.timeRulerXPos;
     }
-    value.css({"left" : newTimeRulerXPos + "px"});
+    value.css({"left": newTimeRulerXPos + "px"});
     newTimeRulerXPos += value.width();
   });
+}
+
+function calculateXPosOfEventMonths(groupTime,eventTime){
+  var difference = moment(eventTime).diff(moment(groupTime),'days');
+  var daysWidth = cellWidth / 30;
+  return difference * daysWidth;
 }

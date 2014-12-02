@@ -14,7 +14,7 @@ function drawTimeRuler() {
     center_date = moment(timelineJson.center_date, "DD-MM-YYYY");
   }
   clearTimeline();
-  mishGA.zoomData.fillTimeRuler(center_date,null);
+  mishGA.zoomData.fillTimeRuler(center_date, null);
 }
 
 /**
@@ -38,8 +38,9 @@ function createRulerGroup(date, widthAmount, xPositionOfGroup, push) {
   var groupID = 'mish-cellsGroup-' + date + '-' + (mishGA.timeRulerGroups.length + 1);
   var divObject = jQuery('<div/>', {
     id: groupID
-    ,class: 'rulerGroup'
-    ,width: widthAmount}).css("left", xPositionOfGroup);
+    , class: 'rulerGroup'
+    , width: widthAmount
+  }).css("left", xPositionOfGroup);
 
   if (push) {
     mishGA.timeRulerGroups.push(divObject);
@@ -68,14 +69,16 @@ function createTimelineCell(id, xPosition, cellClass, cellText, groupID, dateWid
     class: 'label'
   }).text("" + cellText).appendTo(jQuery('<div/>', {
       id: 'mish-cell-' + id,
-      class: cellClass}
+      class: cellClass
+    }
   ).appendTo(jQuery('<div/>', {
       id: 'mish-' + id,
       class: 'date',
-      groupedCells: (dateWidth / cellWidth)}).css({
+      groupedCells: (dateWidth / cellWidth)
+    }).css({
       "left": "" + parseInt(xPosition) + "px",
       "width": dateWidth + "px"
-  }).appendTo('#' + groupID)));
+    }).appendTo('#' + groupID)));
 }
 
 
@@ -89,7 +92,7 @@ function loadUserTimelines() {
 
   col_cont = 1;
 
-  $.each(user_timelines, function (key, value) {
+  jQuery.each(user_timelines, function (key, value) {
     jQuery('<li/>', {
       id: 'timeline-' + key,
       "data-row": "1",

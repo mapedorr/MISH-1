@@ -1,8 +1,8 @@
-function fillTimeRulerWeeks(dateOfReference,xPosDiff) {
+function fillTimeRulerWeeks(dateOfReference, xPosDiff) {
   //Calculate the center of the window
   var center = jQuery(window).width() / 2;
 
-  if(xPosDiff !== null){
+  if (xPosDiff !== null) {
     center -= center - xPosDiff;
   }
 
@@ -10,9 +10,9 @@ function fillTimeRulerWeeks(dateOfReference,xPosDiff) {
   //1. Calculate the x position for the first group ('center' will be used in this operation)
   //2. Loop from 10 months before the center date till 10 months after the center date
 
-  var firstGroupDate = dateOfReference.clone().subtract(10,"months");
+  var firstGroupDate = dateOfReference.clone().subtract(10, "months");
 
-  var daysFromFirstGroup = dateOfReference.diff(firstGroupDate,"days");
+  var daysFromFirstGroup = dateOfReference.diff(firstGroupDate, "days");
   var initialXPos = ((( (daysFromFirstGroup + dateOfReference.date()) * cellWidth) - cellWidth) * -1) + (center);
 
   var groupToDraw = firstGroupDate.clone().startOf("month");
@@ -36,7 +36,7 @@ function fillTimeRulerWeeks(dateOfReference,xPosDiff) {
       groupToDraw.add(1, "month");
     }
   } else {
-    mishGA.timeRulerGroups.forEach(function (value,index) {
+    mishGA.timeRulerGroups.forEach(function (value, index) {
       //Remove the cells in the group
       value.children('.date').remove();
 
@@ -200,21 +200,21 @@ function fillDateRangeWeeks(begin, end, xPos, startDate, drawSeparator, groupID)
   var separatorDrawed = false;
   for (var i = begin; i <= end; i++) {
     var widthForCell = cellWidth;
-    var weekToDraw = startDate.clone().add(daysToAdd,"day");
+    var weekToDraw = startDate.clone().add(daysToAdd, "day");
     var weekCellID = weekToDraw.format('DDMMYYYY');
     var dayNumToDraw = i;
 
-    if(i == end){
+    if (i == end) {
       createTimelineCell(weekCellID, xPos, normalDateCssClass, dayNumToDraw, groupID, widthForCell);
       break;
     }
 
     if (i === begin
-          || weekToDraw.weekday() === 0){
+      || weekToDraw.weekday() === 0) {
       for (var j = i + 1; j <= end; j++) {
         daysToAdd++;
-        var theDay = startDate.clone().add(daysToAdd,"day");
-        if(theDay.weekday() === 0){
+        var theDay = startDate.clone().add(daysToAdd, "day");
+        if (theDay.weekday() === 0) {
           if (separatorDrawed === false) {
             separatorDrawed = true;
             createTimelineCell(weekCellID, xPos, separatorDateCssClass, weekToDraw.format('DD-MMMM-YYYY'), groupID, widthForCell);
@@ -223,9 +223,9 @@ function fillDateRangeWeeks(begin, end, xPos, startDate, drawSeparator, groupID)
           }
           xPos += widthForCell;
           break;
-        }else{
+        } else {
           widthForCell += cellWidth;
-          if(j == end){
+          if (j == end) {
             createTimelineCell(weekCellID, xPos, normalDateCssClass, dayNumToDraw, groupID, widthForCell);
             i = end;
             break;
@@ -243,18 +243,18 @@ function fillDateRangeWeeks(begin, end, xPos, startDate, drawSeparator, groupID)
  * @param centerCellObj
  * @param delta
  */
-function zoomTimeRulerWeeks(centerCellObj,delta){
+function zoomTimeRulerWeeks(centerCellObj, delta) {
   var lastCellWidth = cellWidth - delta;
 
-  mishGA.timeRulerGroups.forEach(function (value,index) {
+  mishGA.timeRulerGroups.forEach(function (value, index) {
     var lastElementWidth = 0;
-    jQuery.each(value.children(".date"),function(index2,value2){
+    jQuery.each(value.children(".date"), function (index2, value2) {
       var elementWidth = 0;
-      if(cellWidth <= 16
-          && value2.getAttribute("groupedCells") == 1){
+      if (cellWidth <= 16
+        && value2.getAttribute("groupedCells") == 1) {
         elementWidth = 16;
-      }else{
-        elementWidth = (value2.offsetWidth / lastCellWidth) *  cellWidth;
+      } else {
+        elementWidth = (value2.offsetWidth / lastCellWidth) * cellWidth;
       }
 
       jQuery(value2).css({
@@ -265,14 +265,14 @@ function zoomTimeRulerWeeks(centerCellObj,delta){
       lastElementWidth += elementWidth;
     });
 
-    value.css({"width" : lastElementWidth + "px"});
+    value.css({"width": lastElementWidth + "px"});
   });
 
 
   //Get other information needed for the operation
   var screenCenter = jQuery(window).width() / 2;
-  if(centerCellObj !== null
-    && centerCellObj.posX !== null){
+  if (centerCellObj !== null
+    && centerCellObj.posX !== null) {
     screenCenter -= screenCenter - centerCellObj.posX;
   }
 
@@ -283,14 +283,19 @@ function zoomTimeRulerWeeks(centerCellObj,delta){
   var newTimeRulerXPos = 0;
 
   //Assign the new LEFT position for each group of the time ruler
-  mishGA.timeRulerGroups.forEach(function (value,index) {
-    if(index == 0){
+  mishGA.timeRulerGroups.forEach(function (value, index) {
+    if (index == 0) {
       newTimeRulerXPos = ( ( ( ( (oldTimeRulerXPos * cellWidth) / lastCellWidth ) + cellWidth ) + screenCenter ) - cellWidth );
       newTimeRulerXPos -= mishGA.timeRulerXPos;
     }
-    value.css({"left" : newTimeRulerXPos + "px"});
+    value.css({"left": newTimeRulerXPos + "px"});
     newTimeRulerXPos += value.width();
   });
 
 
+}
+
+function calculateXPosOfEventWeeks(groupTime,eventTime){
+  var difference = moment(eventTime).diff(moment(groupTime),'days');
+  return difference * cellWidth;
 }

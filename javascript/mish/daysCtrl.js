@@ -4,12 +4,12 @@
  * @param {momnet} dateOfReference
  * @returns {undefined}
  */
-function fillTimeRulerDays(dateOfReference,xPosDiff) {
+function fillTimeRulerDays(dateOfReference, xPosDiff) {
 
   //Calculate the center of the window
   var center = jQuery(window).width() / 2;
 
-  if(xPosDiff !== null){
+  if (xPosDiff !== null) {
     center -= center - xPosDiff;
   }
 
@@ -17,9 +17,9 @@ function fillTimeRulerDays(dateOfReference,xPosDiff) {
   //1. Calculate the x position for the first group ('center' will be used in this operation)
   //2. Loop from 10 months before the center date till 10 months after the center date
 
-  var firstGroupDate = dateOfReference.clone().subtract(10,"months");
+  var firstGroupDate = dateOfReference.clone().subtract(10, "months");
 
-  var daysFromFirstGroup = dateOfReference.diff(firstGroupDate,"days");
+  var daysFromFirstGroup = dateOfReference.diff(firstGroupDate, "days");
   var initialXPos = ((( (daysFromFirstGroup + dateOfReference.date()) * cellWidth) - cellWidth) * -1) + (center);
 
   var groupToDraw = firstGroupDate.clone().startOf("month");
@@ -43,7 +43,7 @@ function fillTimeRulerDays(dateOfReference,xPosDiff) {
       groupToDraw.add(1, "month");
     }
   } else {
-    mishGA.timeRulerGroups.forEach(function (value,index) {
+    mishGA.timeRulerGroups.forEach(function (value, index) {
       //Remove the cells in the group
       value.children('.date').remove();
 
@@ -207,14 +207,14 @@ function addGroupToTimerulerDays(evaluateAdditionToRight) {
 function fillDateRangeDays(begin, end, xPos, startDate, drawSeparator, groupID) {
   var daysToAdd = 0;
   for (var i = begin; i <= end; i++) {
-    var theDay = startDate.clone().add(daysToAdd,"days");
+    var theDay = startDate.clone().add(daysToAdd, "days");
     var cellID = theDay.format('DDMMYYYY');
     if (i === begin && drawSeparator === true) {
       createTimelineCell(cellID, xPos, separatorDateCssClass, theDay.format('DD-MMMM-YYYY'), groupID, cellWidth);
     } else {
       createTimelineCell(cellID, xPos, normalDateCssClass, i, groupID, cellWidth);
     }
-    daysToAdd ++;
+    daysToAdd++;
     xPos = xPos + cellWidth;
   }
 }
@@ -225,28 +225,28 @@ function fillDateRangeDays(begin, end, xPos, startDate, drawSeparator, groupID) 
  * @param centerCellObj
  * @param delta
  */
-function zoomTimeRulerDays(centerCellObj,delta){
+function zoomTimeRulerDays(centerCellObj, delta) {
 //Assign the new WIDTH for each cell and each group and also the new LEFT position of each cell.
-  mishGA.timeRulerGroups.forEach(function (value,index) {
+  mishGA.timeRulerGroups.forEach(function (value, index) {
     var childCount = 0;
     var xPos = 0;
-    value.children(".date").each(function(){
+    value.children(".date").each(function () {
       jQuery(this).css({
-        "left" : xPos,
-        "width" : cellWidth + "px"
+        "left": xPos,
+        "width": cellWidth + "px"
       });
       xPos += cellWidth;
       childCount++;
     });
 
     var newGroupWidth = cellWidth * childCount;
-    value.css({"width" : newGroupWidth + "px"});
+    value.css({"width": newGroupWidth + "px"});
   });
 
   //Get other information needed for the operation
   var screenCenter = jQuery(window).width() / 2;
-  if(centerCellObj !== null
-    && centerCellObj.posX !== null){
+  if (centerCellObj !== null
+    && centerCellObj.posX !== null) {
     screenCenter -= screenCenter - centerCellObj.posX;
   }
   var lastCellWidth = cellWidth - delta;
@@ -258,12 +258,18 @@ function zoomTimeRulerDays(centerCellObj,delta){
   var newTimeRulerXPos = 0;
 
   //Assign the new LEFT position for each group of the time ruler
-  mishGA.timeRulerGroups.forEach(function (value,index) {
-    if(index == 0){
+  mishGA.timeRulerGroups.forEach(function (value, index) {
+    if (index == 0) {
       newTimeRulerXPos = ( ( ( ( (oldTimeRulerXPos * cellWidth) / lastCellWidth ) + cellWidth ) + screenCenter ) - cellWidth );
       newTimeRulerXPos -= mishGA.timeRulerXPos;
     }
-    value.css({"left" : newTimeRulerXPos + "px"});
+    value.css({"left": newTimeRulerXPos + "px"});
     newTimeRulerXPos += value.width();
   });
+}
+
+
+function calculateXPosOfEventDays(groupTime,eventTime){
+  var difference = moment(eventTime).diff(moment(groupTime),'days');
+  return difference * cellWidth;
 }

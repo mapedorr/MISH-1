@@ -94,13 +94,13 @@ function mouseScrollEvent(e) {
   mishGA.zoomData = getZoomData();
 
 
-  if(mishGA.zoomData.id !== mishGA.currentZoomSubLevel
-      || mishGA.zoomData.parentId !== mishGA.currentZoomLevel){
+  if (mishGA.zoomData.id !== mishGA.currentZoomSubLevel
+    || mishGA.zoomData.parentId !== mishGA.currentZoomLevel) {
     //The ZOOM SUB LEVEL changes, do something
     zoomSubLevelChange = true;
     console.log("ZOOM SUB LEVEL CHANGE");
 
-    if(mishGA.zoomData.id === 'PREV'){
+    if (mishGA.zoomData.id === 'PREV') {
       //It's time to change the Zoom LEVEL
       //The ZOOM LEVEL changes, do something
       zoomLevelChange = true;
@@ -110,7 +110,7 @@ function mouseScrollEvent(e) {
       mishGA.currentZoomSubLevel = zoomSubLevels[zoomLevels[mishGA.currentZoomLevel]].lastSubLevel;
       cellWidth = null;
       mishGA.zoomData = getZoomData();
-    }else if(mishGA.zoomData.id === 'NEXT'){
+    } else if (mishGA.zoomData.id === 'NEXT') {
       //The ZOOM LEVEL changes, do something
       zoomLevelChange = true;
       console.log("ZOOM LEVEL CHANGE");
@@ -125,29 +125,29 @@ function mouseScrollEvent(e) {
     mishGA.currentZoomSubLevel = mishGA.zoomData.id;
     mishGA.currentZoomLevel = mishGA.zoomData.parentId;
 
-    if(delta > 0){
+    if (delta > 0) {
       cellWidth = mishGA.zoomData.initialCellWidth;
-    }else{
+    } else {
       cellWidth = mishGA.zoomData.lastCellWidth;
     }
   }
 
   var centerCellObj = findNearestCellToCenter();
 
-  if(zoomSubLevelChange){
+  if (zoomSubLevelChange) {
     //Create a moment with the date of the nearest cell to the center
     var nearestCellToCenterDate = moment('' + centerCellObj.idText, "DDMMYYYY");
 
-    if(zoomLevelChange){
+    if (zoomLevelChange) {
       mishGA.timeRulerGroups = [];
       clearTimeline();
     }
 
     //Call the function that fill the time ruler
-    mishGA.zoomData.fillTimeRuler(nearestCellToCenterDate,centerCellObj.posX);
-  }else{
+    mishGA.zoomData.fillTimeRuler(nearestCellToCenterDate, centerCellObj.posX);
+  } else {
     //Call the function that zoom the time ruler
-    mishGA.zoomData.zoomTimeRuler(centerCellObj,delta);
+    mishGA.zoomData.zoomTimeRuler(centerCellObj, delta);
   }
 
 }
@@ -250,14 +250,14 @@ function createMISHEventBtnAction() {
   //Delete the last error message
   clearErrorMessages(containerDIV);
 
-  if ($("#eventName").val() === "") {
+  if (jQuery("#eventName").val() === "") {
     appendErrorMessage(containerDIV, "dialog.createEvent.error.eventName.empty");
     showError = true;
   } else {
     //Validate format
   }
 
-  if ($("#eventDate").val() === "") {
+  if (jQuery("#eventDate").val() === "") {
     appendErrorMessage(containerDIV, "dialog.createEvent.error.eventDate.empty");
     showError = true;
   } else {
@@ -268,7 +268,7 @@ function createMISHEventBtnAction() {
     jQuery("#errorNewEvent").show("blind", 300);
     user_loggedIn = false;
   } else {
-    createMISHEvent()
+    createMISHEvent();
     jQuery("#errorNewEvent").hide();
     closeDialog('#newEventDialog');
   }
