@@ -77,12 +77,8 @@ function canvasApp(x, y) {
     //Clean the canvas for smooth lines
     context.clearRect(0, 0, theCanvas.width, theCanvas.height);
 
-    eventsJsonElement.forEach(function (eventObj) {
+    mishJsonObjs.eventsJsonElement.forEach(function (eventObj) {
       if (eventObj.date) {
-        //0. If the event hasn't time information, calculate it
-        if(!eventObj.time){
-          eventObj.time = moment(eventObj.date,'DD-MM-YYYY').valueOf();
-        }
         //1. Search into which group the event's date fits
         var groupOfDate = findGroupOfEvent(eventObj.time);
 

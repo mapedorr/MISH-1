@@ -13,32 +13,27 @@ var mishGA = {
   zoomData: null
 };
 
+/**
+ * Object that will contain elements related with the JSON operations.
+ */
 var mishJsonObjs = {
-  timelineJson:null
+  timelineJson: null,
+  eventsJsonElement: []
 };
 
 var msg;
-var timeRulerLeftLimit;
-var timeRulerRightLimit;
 
 /*Attributes for styles*/
 var centerDateCssClass;
 var separatorDateCssClass;
 var normalDateCssClass;
 
-
-
-var eventsJsonElement;
-var event_date;
-var startdate_tl;
-var enddate_tl;
 var timeline_color_scheme;
 var colorsch_id;
 var globalPosX;
 var globalPosY;
 var zoom_level;
 var cellWidth;
-var zoomCorelat;
 var zoom_local;
 var center_date;
 var next_user_id;
@@ -67,11 +62,6 @@ function initAttr() {
   mishGA.zoomData = getZoomData();
   cellWidth = mishGA.zoomData.initialCellWidth;
 
-  timeRulerLeftLimit = 0;
-  timeRulerRightLimit = 0;
-
-
-  eventsJsonElement = new Array();
   timeline_color_scheme = new Array();
   zoom_level = 0;
   center_date = moment();
@@ -117,9 +107,6 @@ jQuery(document).ready(function () {
 
   //Draw the basis time ruler
   drawTimeRuler();
-
-
-  readJSonUser();//This should be done only in the Log in pop up
 });
 
 //Assign listener for window resizing

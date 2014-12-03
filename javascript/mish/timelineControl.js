@@ -3,6 +3,33 @@
  */
 
 /**
+ * Function called when a timeline is loaded. It assigns all the information needed for the draw of
+ * the time ruler and the events to the respective objects of mishJsonObjs.
+ *
+ * @param jsonObj
+ */
+function timeLineJsonLoaded(jsonObj) {
+  //1. Get the timeline information and assign it to the mishJsonObjs.timelineJson object
+  mishJsonObjs.timelineJson = jsonObj.timeline;
+
+  //2. Get the events of the loaded timeline
+  mishJsonObjs.eventsJsonElement = mishJsonObjs.timelineJson.events;
+
+  //2.1 Set some required information (if it's necessary) to the timeline events
+  mishJsonObjs.eventsJsonElement.forEach(function (eventObj) {
+    if (eventObj.date) {
+      //0. If the event hasn't time information, calculate it
+      if (!eventObj.time) {
+        eventObj.time = moment(eventObj.date, 'DD-MM-YYYY').valueOf();
+      }
+    }
+  });
+
+  //3. Draw the time ruler and all the events
+  drawTimeRuler();
+}
+
+/**
  * Function that draws the basic time ruler whether a saved timeline is loaded or is a new timeline.
  *
  * @returns {undefined}
@@ -24,15 +51,17 @@ function drawTimeRuler() {
  */
 function clearTimeline() {
   jQuery("#timeline-container").empty();
-  //TODO: Maybe here it's necessary to also clear the array of groups in 'timeRulerGroups'
+  mishGA.timeRulerGroups = [];
 }
 
-/*
- * 
- * @param {type} date
- * @param {type} widthAmount
- * @param {type} xPositionOfGroup
- * @returns {String}
+/**
+ * Function that creates a new group for containing cell of the time ruler.
+ *
+ * @param date
+ * @param widthAmount
+ * @param xPositionOfGroup
+ * @param push
+ * @returns {string}
  */
 function createRulerGroup(date, widthAmount, xPositionOfGroup, push) {
   var groupID = 'mish-cellsGroup-' + date + '-' + (mishGA.timeRulerGroups.length + 1);
@@ -53,15 +82,15 @@ function createRulerGroup(date, widthAmount, xPositionOfGroup, push) {
   return groupID;
 }
 
-/*
+/**
  * Function that draws the DIVs that represents a cell in the time ruler.
- * 
- * @param {type} id
- * @param {type} xPosition
- * @param {type} cellClass
- * @param {type} cellText
- * @param {type} groupID
- * @returns {undefined}
+ *
+ * @param id
+ * @param xPosition
+ * @param cellClass
+ * @param cellText
+ * @param groupID
+ * @param dateWidth
  */
 function createTimelineCell(id, xPosition, cellClass, cellText, groupID, dateWidth) {
   jQuery('<div/>', {

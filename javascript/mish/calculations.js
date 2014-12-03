@@ -8,17 +8,17 @@ function calculateDistance(date1, date2) {
 }
 
 /**
- * Function that calculate the center date of all the events in the timeline.
+ * Function that calculate the center date of all the events in the current timeline.
  *
- * @returns {*}
+ * @returns {moment}
  */
-function calcularCenterDate() {
+function findCenterDate() {
 
-  if (eventsJsonElement.length > 0) {
+  if (mishJsonObjs.eventsJsonElement.length > 0) {
     var menor = null;
     var mayor = null;
-    jQuery.each(eventsJsonElement, function (key, value) {
-      var eventDateMoment = moment(value.date, "DD-MM-YYYY");
+    mishJsonObjs.eventsJsonElement.forEach(function (eventObj) {
+      var eventDateMoment = moment(eventObj.date, "DD-MM-YYYY");
       if (menor == null) {
         menor = eventDateMoment;
       }
@@ -41,11 +41,9 @@ function calcularCenterDate() {
 
     var mitad = menor.clone().add('' + zoom_local, calculateDistance(menor, mayor) / 2);
     return mitad.format('DD-MM-YYYY');
-  }
-  else {
+  } else {
     return null;
   }
-
 }
 
 /**

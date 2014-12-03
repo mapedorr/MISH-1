@@ -139,7 +139,6 @@ function mouseScrollEvent(e) {
     var nearestCellToCenterDate = moment('' + centerCellObj.idText, "DDMMYYYY");
 
     if (zoomLevelChange) {
-      mishGA.timeRulerGroups = [];
       clearTimeline();
     }
 
@@ -206,13 +205,12 @@ function createUserBtnAction() {
 
 /**
  * Function that validates the Log In form and call the database operation that
- * log the user.
- *
- * @returns {undefined}
+ * logs the user.
  */
 function logInBtnAction() {
   //Boolean that show xor hide the error message
   var showError = false;
+
   //The ID of the error's container DIV
   var containerDIV = "#logInErrorMsg";
 
@@ -220,7 +218,7 @@ function logInBtnAction() {
   clearErrorMessages(containerDIV);
 
   if (jQuery("#registeredUserName").val() === ""
-    || jQuery("#registeredUserPassword").val() === "") {
+      || jQuery("#registeredUserPassword").val() === "") {
     appendErrorMessage(containerDIV, "dialog.logIn.error.empty.fields");
     showError = true;
   }
@@ -229,7 +227,7 @@ function logInBtnAction() {
     jQuery("#errorLogin").show("fade", 200);
     user_loggedIn = false;
   } else {
-    lookForUserLogIn();
+    logInUser();
     jQuery("#errorLogin").hide();
     closeDialog('#logInDialog');
   }
@@ -275,6 +273,31 @@ function createMISHEventBtnAction() {
 }
 
 /**
+ * Function that creates a new event and push it to the 'mishJsonObjs.eventsJsonElement' array.
+ *
+ * @returns {undefined}
+ */
+function createMISHEvent() {
+  //Get the ID that the event will have
+  var eventsArrayLastPos = mishJsonObjs.eventsJsonElement.length;
+  var eventID = (eventsArrayLastPos === 0) ? 1 : mishJsonObjs.eventsJsonElement[eventsArrayLastPos - 1].id + 1;
+
+  //Create an event object with the info of the new event
+  var newEvent = {
+    "id": eventID,
+    "title": jQuery("#eventName").val(),
+    "text": "ToDo",
+    "date": jQuery("#eventDate").val(),
+    "time": (moment(jQuery("#eventDate").val(), "DD-MM-YYYY")).valueOf(),
+    "image": jQuery("#eventImg").val(),
+    "urllink": "ToDo"
+  };
+
+  //Add the created event object to the array of events of the timeline
+  mishJsonObjs.eventsJsonElement.push(newEvent);
+}
+
+/**
  * Function that validates the fields for Creating a New Timeline and then
  * proceeds to send the data to the database.
  *
@@ -298,7 +321,7 @@ function createTimelineBtnAction() {
     jQuery("#errorSaveTimeline").show("blind", 300);
     user_loggedIn = false;
   } else {
-    guardarTimelineOnJson();
+    saveTimeline();
     jQuery("#errorSaveTimeline").hide();
     closeDialog('#newTimelineDialog');
   }
