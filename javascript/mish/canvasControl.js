@@ -77,16 +77,20 @@ function canvasApp(x, y) {
     //Clean the canvas for smooth lines
     context.clearRect(0, 0, theCanvas.width, theCanvas.height);
 
-    jQuery.each(eventsJsonElement, function (key, eventObj) {
+    eventsJsonElement.forEach(function (eventObj) {
       if (eventObj.date) {
+        //0. If the event hasn't time information, calculate it
+        if(!eventObj.time){
+          eventObj.time = moment(eventObj.date,'DD-MM-YYYY').valueOf();
+        }
         //1. Search into which group the event's date fits
         var groupOfDate = findGroupOfEvent(eventObj.time);
 
-        if(groupOfDate){
+        if (groupOfDate) {
           //2. Calculate the X position of the event
-          var eventXPos = calculateXPosOfEvent(groupOfDate,eventObj);
+          var eventXPos = calculateXPosOfEvent(groupOfDate, eventObj);
 
-          if(eventXPos){
+          if (eventXPos) {
             drawLineToTimeline(eventXPos, globalPosY);
             drawEvent(eventXPos, globalPosY, eventObj.title);
           }
@@ -117,29 +121,28 @@ function canvasApp(x, y) {
 
   function drawEvent(event_posX, event_posY, event_text) {
     if (event_posX < jQuery(window).width()
-      && event_posX >= 0) {
+        && event_posX >= 0) {
       //Define the properties of the event to draw
       context.font = "14px sans-serif";
       context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "GRAY";
-      context.fillText(event_text, event_posX, event_posY - 5);
 
-      /* CIRCLE DRAW
-       context.lineWidth = 10;
-       context.lineCap = 'round';
-       context.lineJoin = 'round';
-       context.strokeStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "GRAY";
-       context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "GRAY";
-       context.setLineDash([0]);
+      //Draw the title of the event
+      context.fillText(event_text, event_posX + 20, event_posY + 3);
 
-       //Draw the event
-       context.beginPath();
-       //context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
-       context.arc(event_posX, event_posY, 10, 0, Math.PI * 2, false);
-       context.fill();
-       context.stroke();
-       context.closePath();
+      //Draw the circle of the event
+      context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#336699";
+      context.lineWidth = 10;
+      context.lineCap = 'round';
+      context.lineJoin = 'round';
+      context.strokeStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#336699";
+      context.fillStyle = "" + (timeline_color_scheme) ? timeline_color_scheme[1] : "#336699";
+      context.setLineDash([0]);
 
-       */
+      context.beginPath();
+      context.arc(event_posX, event_posY, 5, 0, Math.PI * 2, false);
+      context.fill();
+      context.stroke();
+      context.closePath();
     }
   }
 

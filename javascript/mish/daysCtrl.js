@@ -5,7 +5,6 @@
  * @returns {undefined}
  */
 function fillTimeRulerDays(dateOfReference, xPosDiff) {
-
   //Calculate the center of the window
   var center = jQuery(window).width() / 2;
 

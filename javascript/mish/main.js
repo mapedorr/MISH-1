@@ -13,6 +13,10 @@ var mishGA = {
   zoomData: null
 };
 
+var mishJsonObjs = {
+  timelineJson:null
+};
+
 var msg;
 var timeRulerLeftLimit;
 var timeRulerRightLimit;
@@ -23,7 +27,7 @@ var separatorDateCssClass;
 var normalDateCssClass;
 
 
-var timelineJson;
+
 var eventsJsonElement;
 var event_date;
 var startdate_tl;
@@ -62,13 +66,11 @@ function initAttr() {
   //Get the cell width for the initial zoom level
   mishGA.zoomData = getZoomData();
   cellWidth = mishGA.zoomData.initialCellWidth;
-  console.log('INITIAL CELL WIDTH : ' + cellWidth);
 
   timeRulerLeftLimit = 0;
   timeRulerRightLimit = 0;
 
 
-  timelineJson = null;
   eventsJsonElement = new Array();
   timeline_color_scheme = new Array();
   zoom_level = 0;

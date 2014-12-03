@@ -12,10 +12,9 @@ function readJSonTimeline(id) {
     },
     "dataType": "JSON"
   }).done(function (data) {
-
-//cuando el archivo php responde, entonces...
-
-    timelineJson = data.timeline;
+    //cuando el archivo php responde, entonces...
+    mishJsonObjs.timelineJson = data.timeline;
+    mishGA.timeRulerGroups = [];
     timeLineJsonSuccessRead();
   });
 }
@@ -26,7 +25,6 @@ function readJSonUser() {
   jQuery.get('/MISH/PHP/cuentaUsuarios.php', function (data) {
     if (data) {
       next_user_id = parseInt(data) + 1;
-
     }
   });
 }
@@ -58,8 +56,8 @@ function createMISHEvent() {
 
 
 function timeLineJsonSuccessRead() {
-  eventsJsonElement = timelineJson.events;
-  colorsch_id = timelineJson.color_scheme;
+  eventsJsonElement = mishJsonObjs.timelineJson.events;
+  colorsch_id = mishJsonObjs.timelineJson.color_scheme;
   readColorSchemeXML();
 }
 

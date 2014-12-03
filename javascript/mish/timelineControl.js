@@ -9,9 +9,9 @@
  */
 function drawTimeRuler() {
   //Get the center date of the timeline loaded by the user
-  if (timelineJson
-    && timelineJson.center_date) {
-    center_date = moment(timelineJson.center_date, "DD-MM-YYYY");
+  if (mishJsonObjs.timelineJson
+    && mishJsonObjs.timelineJson.center_date) {
+    center_date = moment(mishJsonObjs.timelineJson.center_date, "DD-MM-YYYY");
   }
   clearTimeline();
   mishGA.zoomData.fillTimeRuler(center_date, null);
