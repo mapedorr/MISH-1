@@ -33,7 +33,7 @@ function getMessage(id) {
  * @returns {undefined}
  */
 function clearErrorMessages(containerDiv) {
-  jQuery(containerDiv).find("ul").empty();
+  jQuery(containerDiv).empty();
 }
 
 /**
@@ -44,14 +44,27 @@ function clearErrorMessages(containerDiv) {
  * @returns {undefined}
  */
 function appendErrorMessage(containerDiv, messageId) {
-  jQuery(containerDiv).find("ul").append("<li>" + msg[messageId] + "</li>");
+  jQuery(containerDiv).append("<p>" + msg[messageId] + "</p>");
+}
+
+/**
+ * Function that shows xor hide an error message element.
+ *
+ * @param {string} id
+ * @param {boolean} show
+ */
+function showErrorMsg(id,show){
+  if(show){
+    jQuery(id).show("blind", 200);
+  }else{
+    jQuery(id).hide("blind", 100);
+  }
 }
 
 /**
  * Function that close the specified Dialog window.
  *
- * @param {type} id
- * @returns {undefined}
+ * @param {string} id
  */
 function closeDialog(id) {
   jQuery(id).dialog('close');

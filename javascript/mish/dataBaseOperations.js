@@ -1,11 +1,13 @@
 /**
- * Function that looks for a user in the database and begins its session when when it is found.
+ * Function that looks for a user in the database and begins its session when it is found.
  */
-function logInUser() {
+function loginUser(username,password,callback){
   var userData = {
-    "user_name": jQuery("#registeredUserName").val(),
-    "user_password": jQuery("#registeredUserPassword").val()
+    "user_name": username,
+    "user_password": password
   };
+
+  var errObj = {msg:''};
 
   jQuery.ajax({
     "url": "PHP/validaUsuarioRegistrado.php",
@@ -14,49 +16,59 @@ function logInUser() {
       "regUserObj": JSON.stringify(userData)
     },
     "dataType": "JSON"
-  }).done(function (data) {
+  }).done(function (data){
     if (data.error != "") {
-      jQuery('#logInErrorMsg').empty();
-      login_error = "El usuario y la contaseña no coinciden"
-      jQuery('#logInErrorMsg').append("" + login_error);
-      user_loggedIn = false;
-      jQuery('#errorLogin').show();
-    } else {
-      user_loggedIn = true;
-      logged_user_id = data.user_id;
-      user_timelines = data.timelines;
-      loadUserTimelines();
+      errObj.msg = data.error;
+      callback(errObj,null);
+      return;
     }
+
+    callback(null,data);
   }).fail(function(){
-    user_loggedIn = false;
+    errObj.msg = "error.operation";
+    callback(errObj,null);
   });
 }
 
 /**
  * Function that creates a new user and save it in database.
  */
-function createMISHUser() {
+function createMISHUser(userData,callback){
   readJSonUser(function(){
     //1. Create the object with the information of the new user to create
-    var newuser = {
+    var newUserObj = {
       "user_id": next_user_id,
-      "user_name": jQuery("#userName").val(),
-      "user_password": jQuery("#userPassword").val()
+      "user_name": userData.username,
+      "user_password": userData.password
     };
+
+    var errObj = {msg:''};
 
     //2. Send the object created to database
     jQuery.ajax({
       "url": "PHP/addUser.php",
       "type": "POST",
       "data": {
-        "newUserObject": JSON.stringify(newuser)
+        "newUserObject": JSON.stringify(newUserObj)
       },
       "dataType": "JSON"
     }).done(function (data) {
-      user_loggedIn = true;
-      logged_user_id = next_user_id;
+      if (data.error != "") {
+        errObj.msg = data.error;
+        callback(errObj,null);
+        return;
+      }
+
+      if(!data.user){
+        errObj.msg = "dialog.createUser.error.user.creation";
+        callback(errObj,null);
+        return;
+      }
+
+      callback(null,data.user['user_id']);
     }).fail(function(){
-      //@todo Implement behaviour
+      errObj.msg = "error.operation";
+      callback(errObj,null);
     });
   });
 }
@@ -94,7 +106,7 @@ function saveTimeline() {
           "color_scheme": "01",//@todo Implement this
           "user_id": logged_user_id,
           "creation_date": moment().format("DD-MM-YYYY"),
-          "center_date": calcMitadResponse,
+          "center_date": centerDate,
           "zoom_level": zoom_local,
           "events": mishJsonObjs.eventsJsonElement
         }

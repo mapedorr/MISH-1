@@ -1,21 +1,8 @@
-/**
- * Function that assigns listeners for all the buttons in the application.
- *
- * @returns {undefined}
+/*
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ MOUSE ACTIONS
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  */
-function assignButtonsListeners() {
-  //Assign click event for Create User button
-  jQuery("#buttCreateUser").click(function () {
-    jQuery('#newUserDialog').dialog('open');
-    closeMenu();
-  });
-
-  //Assign click event for Log In button
-  jQuery("#buttLogIn").click(function () {
-    jQuery('#logInDialog').dialog('open');
-    closeMenu();
-  });
-}
 
 /**
  * Function to handle the mouse events.
@@ -60,8 +47,8 @@ function assignMouseEventsListeners() {
       var evaluateAdditionToRight = (lastTimerulerXPos > mishGA.timeRulerXPos)
         ? true
         : ( (lastTimerulerXPos < mishGA.timeRulerXPos)
-        ? false
-        : null );
+          ? false
+          : null );
 
       if (evaluateAdditionToRight !== null) {
         mishGA.zoomData.addGroupToTimeruler(evaluateAdditionToRight);
@@ -94,6 +81,9 @@ function mouseScrollEvent(e) {
   mishGA.zoomData = getZoomData();
 
 
+
+
+  //      updateZoomLevels();
   if (mishGA.zoomData.id !== mishGA.currentZoomSubLevel
     || mishGA.zoomData.parentId !== mishGA.currentZoomLevel) {
     //The ZOOM SUB LEVEL changes, do something
@@ -132,6 +122,11 @@ function mouseScrollEvent(e) {
     }
   }
 
+
+
+
+
+
   var centerCellObj = findNearestCellToCenter();
 
   if (zoomSubLevelChange) {
@@ -151,6 +146,78 @@ function mouseScrollEvent(e) {
 
 }
 
+/*
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+BUTTONS ACTIONS
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+*/
+/**
+ * Function that assigns listeners for all the buttons in the application.
+ *
+ * @returns {undefined}
+ */
+function assignButtonsListeners() {
+  //Assign click event for Create User button
+  jQuery("#buttCreateUser").click(function () {
+    jQuery('#newUserDialog').dialog('open');
+    closeMenu();
+  });
+
+  //Assign click event for Log In button
+  jQuery("#buttLogIn").click(function () {
+    jQuery('#logInDialog').dialog('open');
+    closeMenu();
+  });
+}
+
+/**
+ * Function that validates the Log In form and call the database operation that
+ * logs the user.
+ */
+function logInBtnAction() {
+  //Hide the showed errors
+  showErrorMsg("#errorLogin",false);
+
+  //Boolean that show xor hide the error message
+  var showError = false;
+
+  //The ID of the error's container DIV
+  var containerDIV = "#logInErrorMsg";
+
+  //Delete the last error message
+  clearErrorMessages(containerDIV);
+
+  var username = jQuery("#registeredUserName").val();
+  var password = jQuery("#registeredUserPassword").val();
+
+  if (username === ""
+    || password === "") {
+    appendErrorMessage(containerDIV, "dialog.logIn.error.empty.fields");
+    showError = true;
+  }
+
+  if (showError) {
+    showErrorMsg("#errorLogin",true);
+    user_loggedIn = false;
+  } else {
+    loginUser(username,password,function(err,userObj){
+      if(err){
+        appendErrorMessage(containerDIV, err.msg);
+        showErrorMsg("#errorLogin",true);
+        user_loggedIn = false;
+        return;
+      }
+
+      closeDialog('#logInDialog');
+      user_loggedIn = true;
+      logged_user_id = userObj.user_id;
+      user_timelines = userObj.timelines;
+
+      loadUserTimelines();
+    });
+  }
+}
+
 /**
  * Function that validate the creation of a New User and call the database
  * operation function on success.
@@ -164,16 +231,26 @@ function mouseScrollEvent(e) {
  * @returns {undefined}
  */
 function createUserBtnAction() {
+  //Hide the showed errors
+  showErrorMsg("#errorCreateUser",false);
+
   //Boolean that show xor hide the error message
   var showError = false;
+
   //The ID of the error's container DIV
   var containerDIV = "#createUserErrorMsg";
 
   //Delete the last error message
   clearErrorMessages(containerDIV);
 
+  //Create the object with the user data
+  var newUserObj = {
+    username: jQuery("#userName").val(),
+    password: jQuery("#userPassword").val()
+  };
+
   //Validate the user name
-  if (jQuery("#userName").val() !== "") {
+  if (newUserObj.username !== "") {
     //TODO: Validate format
   } else {
     appendErrorMessage(containerDIV, "dialog.createUser.error.username.empty");
@@ -181,11 +258,12 @@ function createUserBtnAction() {
   }
 
   //Validate the password
-  if (jQuery("#userPassword").val() !== "") {
-    //Validate format
+  var passwordConfirm = jQuery("#userPasswordDos").val();
+  if (newUserObj.password !== "") {
+    //TODO: Validate format
 
     //Verify if password matches
-    if (jQuery("#userPassword").val() !== jQuery("#userPasswordDos").val()) {
+    if (newUserObj.password !== passwordConfirm) {
       appendErrorMessage(containerDIV, "dialog.createUser.error.password.matches");
       showError = true;
     }
@@ -195,41 +273,19 @@ function createUserBtnAction() {
   }
 
   if (showError) {
-    jQuery("#errorCreateUser").show("blind", 300);
+    showErrorMsg("#errorCreateUser",true);
   } else {
-    createMISHUser();
-    jQuery("#errorCreateUser").hide();
-    closeDialog('#newUserDialog');
-  }
-}
+    createMISHUser(newUserObj,function(err,userId){
+      if(err){
+        appendErrorMessage(containerDIV, err.msg);
+        showErrorMsg("#errorCreateUser",true);
+        return;
+      }
 
-/**
- * Function that validates the Log In form and call the database operation that
- * logs the user.
- */
-function logInBtnAction() {
-  //Boolean that show xor hide the error message
-  var showError = false;
-
-  //The ID of the error's container DIV
-  var containerDIV = "#logInErrorMsg";
-
-  //Delete the last error message
-  clearErrorMessages(containerDIV);
-
-  if (jQuery("#registeredUserName").val() === ""
-      || jQuery("#registeredUserPassword").val() === "") {
-    appendErrorMessage(containerDIV, "dialog.logIn.error.empty.fields");
-    showError = true;
-  }
-
-  if (showError) {
-    jQuery("#errorLogin").show("fade", 200);
-    user_loggedIn = false;
-  } else {
-    logInUser();
-    jQuery("#errorLogin").hide();
-    closeDialog('#logInDialog');
+      user_loggedIn = true;
+      logged_user_id = userId;
+      closeDialog('#newUserDialog');
+    });
   }
 }
 
@@ -240,61 +296,50 @@ function logInBtnAction() {
  * @returns {undefined}
  */
 function createMISHEventBtnAction() {
+  //Hide the showed errors
+  showErrorMsg("#errorNewEvent",false);
+
   //Boolean that show xor hide the error message
   var showError = false;
+
   //The ID of the error's container DIV
   var containerDIV = "#newEventErrorMsg";
 
   //Delete the last error message
   clearErrorMessages(containerDIV);
 
-  if (jQuery("#eventName").val() === "") {
-    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventName.empty");
-    showError = true;
-  } else {
-    //Validate format
-  }
-
-  if (jQuery("#eventDate").val() === "") {
-    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventDate.empty");
-    showError = true;
-  } else {
-    //Validate format
-  }
-
-  if (showError) {
-    jQuery("#errorNewEvent").show("blind", 300);
-    user_loggedIn = false;
-  } else {
-    createMISHEvent();
-    jQuery("#errorNewEvent").hide();
-    closeDialog('#newEventDialog');
-  }
-}
-
-/**
- * Function that creates a new event and push it to the 'mishJsonObjs.eventsJsonElement' array.
- *
- * @returns {undefined}
- */
-function createMISHEvent() {
-  //Get the ID that the event will have
-  var eventsArrayLastPos = mishJsonObjs.eventsJsonElement.length;
-  var eventID = (eventsArrayLastPos === 0) ? 1 : mishJsonObjs.eventsJsonElement[eventsArrayLastPos - 1].id + 1;
-
   //Create an event object with the info of the new event
-  var newEvent = {
-    "id": eventID,
+  var newEventObj = {
     "title": jQuery("#eventName").val(),
-    "text": "ToDo",
+    "text": jQuery("#eventDescription").val(),
     "date": jQuery("#eventDate").val(),
     "time": (moment(jQuery("#eventDate").val(), "DD-MM-YYYY")).valueOf(),
     "image": jQuery("#eventImg").val(),
-    "urllink": "ToDo"
+    "urllink": jQuery("#eventUrl").val()
   };
 
-  //Add the created event object to the array of events of the timeline
-  mishJsonObjs.eventsJsonElement.push(newEvent);
+  if (newEventObj.title === "") {
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventName.empty");
+    showError = true;
+  }
+
+  if (newEventObj.date === "") {
+    appendErrorMessage(containerDIV, "dialog.createEvent.error.eventDate.empty");
+    showError = true;
+  }
+
+  if (showError) {
+    showErrorMsg("#errorNewEvent",true);
+    user_loggedIn = false;
+  } else {
+    //Get the ID that the event will have
+    var eventsArrayLastPos = mishJsonObjs.eventsJsonElement.length;
+    var eventID = (eventsArrayLastPos === 0) ? 1 : mishJsonObjs.eventsJsonElement[eventsArrayLastPos - 1].id + 1;
+    newEventObj.id = eventID;
+
+    //Add the created event object to the array of events of the timeline
+    mishJsonObjs.eventsJsonElement.push(newEvent);
+  }
 }
 
 /**

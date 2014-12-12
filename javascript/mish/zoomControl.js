@@ -138,3 +138,46 @@ function getZoomData() {
   }
   return zoomSubLevelObj.zoomSubLevel;
 }
+
+/**
+ * Function that updates the level of Zoom for the application.
+ */
+function updateZoomLevels(){
+  if (mishGA.zoomData.id !== mishGA.currentZoomSubLevel
+      || mishGA.zoomData.parentId !== mishGA.currentZoomLevel) {
+    //The ZOOM SUB LEVEL changes, do something
+    zoomSubLevelChange = true;
+    console.log("ZOOM SUB LEVEL CHANGE");
+
+    if (mishGA.zoomData.id === 'PREV') {
+      //It's time to change the Zoom LEVEL
+      //The ZOOM LEVEL changes, do something
+      zoomLevelChange = true;
+      console.log("ZOOM LEVEL CHANGE");
+
+      mishGA.currentZoomLevel--;
+      mishGA.currentZoomSubLevel = zoomSubLevels[zoomLevels[mishGA.currentZoomLevel]].lastSubLevel;
+      cellWidth = null;
+      mishGA.zoomData = getZoomData();
+    } else if (mishGA.zoomData.id === 'NEXT') {
+      //The ZOOM LEVEL changes, do something
+      zoomLevelChange = true;
+      console.log("ZOOM LEVEL CHANGE");
+
+      //It's time to change the Zoom LEVEL
+      mishGA.currentZoomLevel++;
+      mishGA.currentZoomSubLevel = zoomSubLevels[zoomLevels[mishGA.currentZoomLevel]].initialSubLevel;
+      cellWidth = null;
+      mishGA.zoomData = getZoomData();
+    }
+
+    mishGA.currentZoomSubLevel = mishGA.zoomData.id;
+    mishGA.currentZoomLevel = mishGA.zoomData.parentId;
+
+    if (delta > 0) {
+      cellWidth = mishGA.zoomData.initialCellWidth;
+    } else {
+      cellWidth = mishGA.zoomData.lastCellWidth;
+    }
+  }
+}

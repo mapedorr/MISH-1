@@ -1,6 +1,8 @@
-/* * * * * * * * * * 
- * Global attributes
- * * * * * * * * * * */
+/*
+--------------------------------
+MISH Global Attributes
+ --------------------------------
+ */
 var mishGA = {
   canvasObject: null,
   workAreaWidth: jQuery(window).width(),
@@ -72,10 +74,6 @@ function initAttr() {
   globalPosY = 80;
   logged_user_id = 0;
   user_timelines_count = 0;
-  login_error = "";
-  newuser_error = "";
-  newevent_error = "";
-  newtimeline_error = "";
 
   initStyleVars();
 }
