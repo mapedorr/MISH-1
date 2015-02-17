@@ -139,6 +139,26 @@ div#header div.headerButtons ul li a:active {
   color: white;
 }
 
+div#header div.headerButtons li.logout {
+  background-color: #E64A45;
+  color: #13829f;
+  display: none;
+}
+
+div#header div.headerButtons li.logout a {
+  color: #333333;
+}
+
+div#header div.headerButtons ul li.logout a:hover {
+  background-color: #401513;
+  color: white;
+}
+
+div#header div.headerButtons ul li.logout a:active {
+  background-color: #7F2926;
+  color: white;
+}
+
 /*
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
@@ -215,58 +235,6 @@ div#canvasContextMenu {
 
 .ui-menu {
   width: 300px;
-}
-
-div#user-timelines-loaded {
-
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 21;
-  width: 100%;
-}
-
-div#user-timelines-loaded-title {
-  color: #f5f7f5;
-  width: 100%;
-  position: relative;
-  text-align: center;
-  left: 0;
-  top: 150px;
-}
-
-div#user-timelines-loaded ul#user-timelines-loaded-ul {
-  position: absolute;
-  left: 0;
-  top: 200px;
-}
-
-div#loaded-timelines-container {
-  display: none;
-}
-
-div#user-timelines-overlay {
-  width: 100%;
-  height: 1000px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 20;
-}
-
-li.loadedTimelineStyle:hover {
-  cursor: pointer;
-  background: #caf2bb;
-
-}
-
-li.loadedTimelineStyle {
-  background: #0d3349;
-
-  -webkit-transition: all .3s !important;
-  -moz-transition: all .3s !important;
-  -o-transition: all .3s !important;
-  transition: all .3s !important;
 }
 
 /*
@@ -580,3 +548,119 @@ div#footer div.footerButtons ul.seconda li a:hover {
   color: white;
   padding-right: 40px;
 }
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+ALERTS
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+
+/*
+success: 097054
+error: 9A3334
+*/
+.alert-message-container{
+  display: none;
+  position: absolute;
+  background-color: #097054;
+  padding: 22px;
+  z-index: 101;
+  color: #EDEDED;
+}
+
+.alert-message-container .alert-message-close{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #9A3334;
+  padding: 3px;
+}
+
+.alert-message-container .alert-message{
+  min-width: 250px;
+  text-align: center;
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+LOADED TIMELINES CONTAINER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#loaded-timelines-container {
+  display: none;
+  z-index: 56;
+}
+
+div#user-timelines-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 55;
+}
+
+div#user-timelines-loaded {
+  z-index: 57;
+  width: 100%;
+}
+
+div#user-timelines-loaded div#user-timelines-loaded-title {
+  color: #f5f7f5;
+  background-color: #FFA52D;
+  width: 100%;
+  height: 80px;
+  padding: 0px;
+  text-align: center;
+  font-size: 50px;
+}
+
+div#user-timelines-loaded div#user-timelines-loaded-title div#user-timelines-loaded-title-close{
+  color: #40290B;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: inherit;
+  padding: 0px 10px 0px 20px;
+  cursor: pointer;
+
+  -webkit-transition: all .3s !important;
+  -moz-transition: all .3s !important;
+  -o-transition: all .3s !important;
+  transition: all .3s !important;
+}
+
+div#user-timelines-loaded div#user-timelines-loaded-title div#user-timelines-loaded-title-close:hover{
+  color: #7F5317;
+}
+
+div#user-timelines-loaded ul#user-timelines-loaded-ul{
+  
+}
+
+div#user-timelines-loaded ul#user-timelines-loaded-ul li.loadedTimelineStyle {
+  background-color: #0D3349;
+  text-align: center;
+  font-size: 20px;
+
+  -webkit-transition: all .3s !important;
+  -moz-transition: all .3s !important;
+  -o-transition: all .3s !important;
+  transition: all .3s !important;
+}
+
+div#user-timelines-loaded ul#user-timelines-loaded-ul li.loadedTimelineStyle:hover {
+  cursor: pointer;
+  background-color: #29A0E5;
+}
+
+div#user-timelines-loaded ul#user-timelines-loaded-ul li.loadedTimelineStyle span{
+  
+}
+

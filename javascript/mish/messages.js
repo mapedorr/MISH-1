@@ -17,7 +17,9 @@ var messagesObject = {
     "dialog.logIn.error.user.wrong.password": "El usuario y la contraseña no coinciden",
     //Create Timeline Dialog
     "dialog.createTimeline.title": "Iniciar sesión",
-    "dialog.createTimeline.error.timelineName": "Debe darle un nombre al timeline",
+    "dialog.createTimeline.error.timelineName": "Debe darle un nombre a la línea de tiempo",
+    "dialog.createTimeline.error.noEvents": "Debe crear al menos un evento para guardar la línea de tiempo.",
+    "dialog.createTimeline.error.timeline.creation": "No se pudo guardar la línea de tiempo. Inténtelo de nuevo.",
     //GENERAL ERRORS
     "error.operation":"Ha ocurrido un error inesperado. Inténtelo nuevamente."
   }

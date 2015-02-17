@@ -148,7 +148,9 @@ function mouseScrollEvent(e) {
 
 /*
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BUTTONS ACTIONS
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 */
 /**
@@ -168,6 +170,13 @@ function assignButtonsListeners() {
     jQuery('#logInDialog').dialog('open');
     closeMenu();
   });
+
+  //Assign click event for Log In button
+  jQuery("#buttLogOut").click(function () {
+    logOutBtnAction();
+    closeMenu();
+  });
+
 }
 
 /**
@@ -175,6 +184,9 @@ function assignButtonsListeners() {
  * logs the user.
  */
 function logInBtnAction() {
+  //Delete the timelines previously loaded
+  jQuery('#user-timelines-loaded-ul').empty();
+
   //Hide the showed errors
   showErrorMsg("#errorLogin",false);
 
@@ -210,6 +222,10 @@ function logInBtnAction() {
 
       closeDialog('#logInDialog');
       user_loggedIn = true;
+
+      jQuery(".logout").show();
+      jQuery(".login").hide();
+
       logged_user_id = userObj.user_id;
       user_timelines = userObj.timelines;
 
@@ -227,8 +243,6 @@ function logInBtnAction() {
  *  - Realizar las validaciones de formato para cada campo
  *  - Si se puede, usar un indicador de nivel de seguridad de la contraseña
  *
- *
- * @returns {undefined}
  */
 function createUserBtnAction() {
   //Hide the showed errors
@@ -246,6 +260,7 @@ function createUserBtnAction() {
   //Create the object with the user data
   var newUserObj = {
     username: jQuery("#userName").val(),
+    useremail: jQuery("#userEMail").val(),
     password: jQuery("#userPassword").val()
   };
 
@@ -283,6 +298,10 @@ function createUserBtnAction() {
       }
 
       user_loggedIn = true;
+
+      jQuery(".logout").show();
+      jQuery(".login").hide();
+
       logged_user_id = userId;
       closeDialog('#newUserDialog');
     });
@@ -290,10 +309,19 @@ function createUserBtnAction() {
 }
 
 /**
+ * Function that logout the user, cleaning all the information.
+ */
+function logOutBtnAction(){
+  jQuery(".logout").hide();
+  jQuery(".login").show();
+
+  user_loggedIn = false;
+}
+
+/**
  * Function that validates the fields for Creating a New Event and then
  * proceeds to send the data to the database.
- *
- * @returns {undefined}
+ * 
  */
 function createMISHEventBtnAction() {
   //Hide the showed errors
@@ -345,12 +373,15 @@ function createMISHEventBtnAction() {
 /**
  * Function that validates the fields for Creating a New Timeline and then
  * proceeds to send the data to the database.
- *
- * @returns {undefined}
+ * 
  */
 function createTimelineBtnAction() {
+  //Hide the showed errors
+  showErrorMsg("#errorSaveTimeline",false);
+
   //Boolean that show xor hide the error message
   var showError = false;
+
   //The ID of the error's container DIV
   var containerDIV = "#saveTimelineErrorMsg";
 
@@ -363,23 +394,45 @@ function createTimelineBtnAction() {
   }
 
   if (showError) {
-    jQuery("#errorSaveTimeline").show("blind", 300);
-    user_loggedIn = false;
+    showErrorMsg("#errorSaveTimeline",true);
   } else {
-    saveTimeline();
-    jQuery("#errorSaveTimeline").hide();
-    closeDialog('#newTimelineDialog');
+    saveTimeline(function(err,createdTimeline){
+      if(err){
+        appendErrorMessage(containerDIV, err.msg);
+        showErrorMsg("#errorSaveTimeline",true);
+        return;
+      }
+
+      jQuery('#newTimelineDialog').dialog('close');
+      // @TODO Create a success message...
+    });
   }
 }
 
-
+/**
+ * Function that saves the changes made in the timeline when it exists.
+ * If the timeline doesn't exists, then it attempts to create it. But, if the
+ * user isn't logged, then the function opens the dialog for creating a user, and,
+ * after its creation the timeline is saved.
+ * 
+ */
 function guardarTimeline() {
+  jQuery(".alert-message").append("Se ha creado la línea de tiempo");
+  jQuery(".alert-message-container").show("fade",450);
+  var alertContainerWidth = jQuery(".alert-message-container").width();
+  var alertContainerHeight = jQuery(".alert-message-container").height();
+  var xPos = (mishGA.workAreaWidth / 2) - (alertContainerWidth / 2);
+  var yPos = ((mishGA.workAreaHeight / 2) - (alertContainerHeight / 2)) - 50;
+  jQuery(".alert-message-container").css({left:xPos,top:yPos});
+
+  /*
   if (user_loggedIn) {
     jQuery("#newTimelineDialog").dialog('open');
   }
   else {
     jQuery("#buttCreateUser").click();
   }
+  */
 }
 
 function abrirTimelineClic(timelineId) {

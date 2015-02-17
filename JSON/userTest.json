@@ -1,1 +1,47 @@
-{"mish_user":{"users":[{"user_id":1,"user_name":"UsuarioPruebas","user_password":"password"},{"user_id":2,"user_name":"dos","user_password":"dos"},{"user_id":3,"user_name":"coco","user_password":"coco"},{"user_id":4,"user_name":"tres","user_password":"tres"},{"user_id":5,"user_name":"pepe","user_password":"pepe"},{"user_id":6,"user_name":"sdfs","user_password":"sadfasdf"}]}}
+{
+  "mish_user": {
+    "users": [
+      {
+        "user_id": 1,
+        "user_name": "UsuarioPruebas",
+        "user_mail": "mail1",
+        "user_password": "password"
+      },
+      {
+        "user_id": 2,
+        "user_name": "dos",
+        "user_password": "dos"
+      },
+      {
+        "user_id": 3,
+        "user_name": "coco",
+        "user_mail": "mail1",
+        "user_password": "coco"
+      },
+      {
+        "user_id": 4,
+        "user_name": "tres",
+        "user_mail": "mail1",
+        "user_password": "tres"
+      },
+      {
+        "user_id": 5,
+        "user_name": "pepe",
+        "user_mail": "mail1",
+        "user_password": "pepe"
+      },
+      {
+        "user_id": 6,
+        "user_name": "sdfs",
+        "user_mail": "mail1",
+        "user_password": "sadfasdf"
+      },
+      {
+        "user_id": 7,
+        "user_name": "una",
+        "user_e_mail": "una",
+        "user_password": "una"
+      }
+    ]
+  }
+}

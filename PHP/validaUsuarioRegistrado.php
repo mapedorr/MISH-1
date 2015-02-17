@@ -1,18 +1,18 @@
 <?php
 $dataUser = $_POST['regUserObj'];
 $eventJsonTransfer = json_decode($dataUser);
+$response = [
+  "error" => "",
+  "user_id" => "",
+  "timelines" => []
+];
 
 function findUser(){
   global $eventJsonTransfer;
+  global $response;
   
   $users_saved = file_get_contents("../JSON/userTest.json");
   $users_data = json_decode($users_saved, true);
-
-  $response = [
-      "error" => "",
-      "user_id" => "",
-      "timelines" => []
-  ];
 
   $userFound = FALSE;
   $passwordError = FALSE;
@@ -44,7 +44,7 @@ function findUser(){
 }
 
 function listarArchivos($path) {
-  global $parametros;
+  global $response;
 
   // Abrimos la carpeta que nos pasan como parámetro
   $contador = 0;
@@ -56,8 +56,8 @@ function listarArchivos($path) {
     if ($elemento != "." && $elemento != "..") {
       $timelines_loaded = file_get_contents($path . "/" . $elemento);
       $timelines_data = json_decode($timelines_loaded, true);
-      //En la siguiente línea ponemos en el arreglo $parametros, en "timelines" el ID y en ese ID ponemos la CreationDate, ambos del archivo.
-      $parametros["timelines"][$timelines_data["timeline"]["timeline_id"]] = $timelines_data["timeline"]["creation_date"];
+      //En la siguiente línea ponemos en el arreglo $response, en "timelines" el ID y en ese ID ponemos la CreationDate, ambos del archivo.
+      $response["timelines"][$timelines_data["timeline"]["timeline_id"]] = $timelines_data["timeline"]["timeline_name"];
     }
   }
 }

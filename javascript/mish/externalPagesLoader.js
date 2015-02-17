@@ -68,4 +68,17 @@ function loadExternalPages() {
       closeMenu();
     });
   });
+
+  //Load alert.html
+  /*jQuery("#alertsDialog").load("pages/alert.html", function(){
+    console.log("L O A D E D");
+  });
+  */
+    jQuery("#footerNewEvent").click(function () {
+        jQuery("#eventDate").datepicker({dateFormat: "dd-mm-yy"});
+        jQuery('#newEventDialog').dialog('open');
+        closeMenu();
+    });
+
+
 }

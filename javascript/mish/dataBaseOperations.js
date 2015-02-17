@@ -1,5 +1,9 @@
 /**
  * Function that looks for a user in the database and begins its session when it is found.
+ * 
+ * @param {string} username
+ * @param {string} password
+ * @param {function(err,obj)} callback
  */
 function loginUser(username,password,callback){
   var userData = {
@@ -32,6 +36,9 @@ function loginUser(username,password,callback){
 
 /**
  * Function that creates a new user and save it in database.
+ * 
+ * @param {object} password
+ * @param {function(err,obj)} callback
  */
 function createMISHUser(userData,callback){
   readJSonUser(function(){
@@ -39,6 +46,7 @@ function createMISHUser(userData,callback){
     var newUserObj = {
       "user_id": next_user_id,
       "user_name": userData.username,
+      "user_e_mail": userData.useremail,
       "user_password": userData.password
     };
 
@@ -91,9 +99,13 @@ function readJSonUser(callback) {
 
 /**
  * Function that save the current timeline in database.
+ * 
+ * @param {function(err,object)} callback
  */
-function saveTimeline() {
+function saveTimeline(callback) {
   if (user_loggedIn) {
+    var errObj = {msg:''};
+
     //1. Find the center date of all the events of the current timeline
     var centerDate = findCenterDate();
 
@@ -121,14 +133,28 @@ function saveTimeline() {
         },
         "dataType": "JSON"
       }).done(function (data) {
-        //@todo Implement behaviour
-        jQuery('#newTimelineDialog').dialog('close');
+        if (data.error != "") {
+          errObj.msg = data.error;
+          callback(errObj,null);
+          return;
+        }
+
+        if(!data.timeline){
+          errObj.msg = "dialog.createTimeline.error.timeline.creation";
+          callback(errObj,null);
+          return;
+        }
+
+        callback(null,data.timeline);
+        return;
+
       }).fail(function(){
-        //@todo Implement behaviour
-        jQuery('#newTimelineDialog').dialog('close');
+        errObj.msg = "error.operation";
+        callback(errObj,null);
       });
     } else {
-      confirm("Debe crear al menos un evento");
+      errObj.msg = "dialog.createTimeline.error.noEvents";
+      callback(errObj,null);
     }
   }
 }
