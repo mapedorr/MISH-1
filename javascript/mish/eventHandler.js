@@ -221,11 +221,10 @@ function logInBtnAction() {
       }
 
       closeDialog('#logInDialog');
-      user_loggedIn = true;
-
       jQuery(".logout").show();
       jQuery(".login").hide();
 
+      user_loggedIn = true;
       logged_user_id = userObj.user_id;
       user_timelines = userObj.timelines;
 
@@ -312,6 +311,26 @@ function createUserBtnAction() {
  * Function that logout the user, cleaning all the information.
  */
 function logOutBtnAction(){
+  //Clear the information of the logged user
+  next_user_id = 0;
+  user_loggedIn = false;
+  user_timelines = null;
+  logged_user_id = 0;
+  user_timelines_count = 0;
+
+  //Restore the timeline ruler and canvas variables to defaults
+  center_date = moment();
+
+  mishJsonObjs.timelineJson = null;
+  mishJsonObjs.eventsJsonElement = [];
+
+  cellWidth = null;
+  mishGA.currentZoomLevel = 6;
+  mishGA.currentZoomSubLevel = 2;
+  mishGA.zoomData = getZoomData();
+  cellWidth = mishGA.zoomData.initialCellWidth;
+  drawTimeRuler();
+
   jQuery(".logout").hide();
   jQuery(".login").show();
 
