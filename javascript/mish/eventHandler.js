@@ -385,7 +385,8 @@ function createMISHEventBtnAction() {
     newEventObj.id = eventID;
 
     //Add the created event object to the array of events of the timeline
-    mishJsonObjs.eventsJsonElement.push(newEvent);
+    mishJsonObjs.eventsJsonElement.push(newEventObj);
+    jQuery('#newEventDialog').dialog('close');
   }
 }
 
@@ -436,6 +437,7 @@ function createTimelineBtnAction() {
  * 
  */
 function guardarTimeline() {
+  /*
   jQuery(".alert-message").append("Se ha creado la línea de tiempo");
   jQuery(".alert-message-container").show("fade",450);
   var alertContainerWidth = jQuery(".alert-message-container").width();
@@ -443,15 +445,14 @@ function guardarTimeline() {
   var xPos = (mishGA.workAreaWidth / 2) - (alertContainerWidth / 2);
   var yPos = ((mishGA.workAreaHeight / 2) - (alertContainerHeight / 2)) - 50;
   jQuery(".alert-message-container").css({left:xPos,top:yPos});
+  */
 
-  /*
   if (user_loggedIn) {
     jQuery("#newTimelineDialog").dialog('open');
   }
   else {
     jQuery("#buttCreateUser").click();
   }
-  */
 }
 
 function abrirTimelineClic(timelineId) {

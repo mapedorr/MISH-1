@@ -3,7 +3,7 @@
 $dataNewTimeline = $_POST['userNewTimeline'];
 $timelineJsonTransfer = json_decode($dataNewTimeline);
 $response = [
-  "error" => ""
+  "error" => "",
   "timeline" => ""
 ];
 
