@@ -421,7 +421,7 @@ and provide a clean left edge to which all the form filds align.
 .formMISH-button {
   float: right;
   border: none;
-  background-color: #13829f;
+  background-color: #0A4554;
   color: #ECECEC;
   padding: 8px;
   cursor: pointer;
@@ -438,6 +438,11 @@ and provide a clean left edge to which all the form filds align.
   margin-right: 5px;
 }
 
+.formMISH-button:hover {
+  color: white;
+  background-color: #4693A6;
+}
+
 .formMISH-col-1 {
   margin-left: 20px;
   margin-right: -15px;
@@ -448,10 +453,6 @@ and provide a clean left edge to which all the form filds align.
   margin-right: 10px;
 }
 
-.formMISH-button:hover {
-  color: white;
-  background-color: #03181F;
-}
 
 .mish-errors {
   list-style: square;
@@ -664,3 +665,11 @@ div#user-timelines-loaded ul#user-timelines-loaded-ul li.loadedTimelineStyle spa
   
 }
 
+
+
+
+
+.flaticon-close47{
+  font-size: 70px;
+  padding: 0px;
+}

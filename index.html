@@ -5,25 +5,30 @@
 
     <!-- Load Style Files -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link type="text/css" rel="stylesheet" href="css/MISH.css"/>
     <link type="text/css" rel="stylesheet" href="css/jquery.gridster.css"/>
-    <link type="text/css" rel="stylesheet" href="css/mish-baseTheme-01/jquery-ui-1.10.4.custom.css"/>
-    <!--
-        <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
-        <link type="text/css" rel="stylesheet" href="css/bootstrap/bootstrap-theme.css"/>
-    -->
+    <link type="text/css" rel="stylesheet" href="css/flaticons/flaticon.css"/><!-- For more icons: http://www.flaticon.com/ -->
+    <link type="text/css" rel="stylesheet" href="css/mish-white-theme/jquery-ui-1.10.4.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="css/mish-blue-theme/jquery-ui-1.10.4.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="css/mish-black-theme/jquery-ui-1.10.4.custom.css"/>
+    <link type="text/css" rel="stylesheet" href="css/MISH.css"/>
 
 </head>
-<body>
+<body id="mish-white-theme">
     <!-- HEADER -->
     <div id="header">
         <h1>M</h1>
         <!-- <h3>Mi Sitio en la Historia</h3> -->
         <div class="headerButtons">
             <ul>
-                <li class="login"><a href="#" id="buttLogIn">Soy usuario</a></li>
-                <li class="login"><a href="#" id="buttCreateUser">Nuevo usuario</a></li>
-                <li class="logout"><a href="#" id="buttLogOut">Cerrar sesión</a></li>
+                <li class="login">
+                    <a href="#" id="buttLogIn">Soy usuario</a>
+                </li>
+                <li class="login">
+                    <a href="#" id="buttCreateUser">Nuevo usuario</a>
+                </li>
+                <li class="logout">
+                    <a href="#" id="buttLogOut">Cerrar sesión</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -69,7 +74,7 @@
             <div id="user-timelines-loaded-title">
                 <span>Mis líneas de tiempo</span>
                 <div id="user-timelines-loaded-title-close">
-                    X
+                    <div class="glyph-icon flaticon-close47"></div>
                 </div>
             </div>
             <ul id="user-timelines-loaded-ul"></ul>
@@ -104,9 +109,6 @@
     <!-- Load JavaScript Files -->
     <!-- Libraries -->
     <script type="text/javascript" src="javascript/lib/jquery_1_11.js"></script>
-    <!--
-        <script type="text/javascript" src="javascript/lib/bootstrap.js"></script>
-    -->
     <script type="text/javascript" src="javascript/lib/jquery-ui-1.10.4.custom.min.js"></script>
     <script type="text/javascript" src="javascript/lib/modernizr-1.6.min.js"></script>
     <script type="text/javascript" src="javascript/lib/momentjs.js"></script>

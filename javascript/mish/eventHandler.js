@@ -177,6 +177,10 @@ function assignButtonsListeners() {
     closeMenu();
   });
 
+  jQuery("#user-timelines-loaded-title-close").click(function(){
+    jQuery("#loaded-timelines-container").hide();
+  });
+
 }
 
 /**
@@ -227,6 +231,8 @@ function logInBtnAction() {
       user_loggedIn = true;
       logged_user_id = userObj.user_id;
       user_timelines = userObj.timelines;
+
+      jQuery('#user-timelines-loaded-ul').empty();
 
       loadUserTimelines();
     });

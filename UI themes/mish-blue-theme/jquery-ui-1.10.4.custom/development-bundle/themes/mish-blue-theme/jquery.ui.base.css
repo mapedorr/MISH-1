@@ -1,0 +1,25 @@
+/*!
+ * jQuery UI CSS Framework 1.10.4
+ * http://jqueryui.com
+ *
+ * Copyright 2014 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/category/theming/
+ */
+@import url("jquery#mish-blue-theme .ui.core.css");
+
+@import url("jquery#mish-blue-theme .ui.accordion.css");
+@import url("jquery#mish-blue-theme .ui.autocomplete.css");
+@import url("jquery#mish-blue-theme .ui.button.css");
+@import url("jquery#mish-blue-theme .ui.datepicker.css");
+@import url("jquery#mish-blue-theme .ui.dialog.css");
+@import url("jquery#mish-blue-theme .ui.menu.css");
+@import url("jquery#mish-blue-theme .ui.progressbar.css");
+@import url("jquery#mish-blue-theme .ui.resizable.css");
+@import url("jquery#mish-blue-theme .ui.selectable.css");
+@import url("jquery#mish-blue-theme .ui.slider.css");
+@import url("jquery#mish-blue-theme .ui.spinner.css");
+@import url("jquery#mish-blue-theme .ui.tabs.css");
+@import url("jquery#mish-blue-theme .ui.tooltip.css");

@@ -185,8 +185,7 @@ function loadUserTimelines() {
 
   jQuery(".gridster ul").gridster({
     widget_margins: [10, 10],
-    widget_base_dimensions: [140, 140],
-    autogenerate_stylesheet: true
+    widget_base_dimensions: [140, 140]
   });
 
   //Con esto estamos habilitando el overlay que oculta la pantalla cuando se cargan los timeline del usuario
