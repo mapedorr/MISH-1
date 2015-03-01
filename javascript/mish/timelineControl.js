@@ -112,84 +112,28 @@ function createTimelineCell(id, xPosition, cellClass, cellText, groupID, dateWid
 
 
 /**
- * Function that creates the DIVs for the grid of saved timelines for the
- * user logged in
+ * Function that creates the DIVs for the list of saved timelines for the
+ * logged in user.
  *
  */
 function loadUserTimelines() {
   var col_cont = 1;
-
   jQuery.each(user_timelines, function (key, value) {
     jQuery('<li/>', {
       "id": 'timeline-' + key,
-      "data-row": "1",
-      "data-col": col_cont,
-      "data-sizex": "1",
-      "data-sizey": "1",
-      "class": "loadedTimelineStyle",
-      "onclick": "abrirTimelineClic(" + key + ")"
+      "class": "user_timeline_removable",
+      "onclick": "openTimeline(" + key + ")"
     }).appendTo(
-      jQuery('#user-timelines-loaded-ul')
+      jQuery('.user_timelines_list_ul')
     );
 
-    jQuery('<span/>',{}).text(value.toUpperCase()).appendTo(
+    jQuery('<a/>',{"href":"#"}).text(value.toUpperCase()).appendTo(
       jQuery('#timeline-' + key)
     );
-
-    /*
-    jQuery('<li/>', {
-      "id": 'timeline-' + key,
-      "data-row": "1",
-      "data-col": col_cont,
-      "data-sizex": "1",
-      "data-sizey": "1",
-      "class": "loadedTimelineStyle",
-      "onclick": "abrirTimelineClic(" + key + ")"
-    }).text( value.toUpperCase() ).appendTo(
-      jQuery('#user-timelines-loaded-ul')
-    );
-    */
-
 
     col_cont++;
     user_timelines_count++;
   });
-
-  if (col_cont == 1) {
-    //Crea botón cargar ejemplos
-    jQuery('<li/>', {
-      id: 'timeline-load-samples',
-      "data-row": "1",
-      "data-col": "1",
-      "data-sizex": "1",
-      "data-sizey": "1",
-      "class": "loadedTimelineStyle",
-      "onclick": "loadSamplesClic()"
-    }).text("Cargar Ejemplos").appendTo(
-      jQuery('#user-timelines-loaded-ul')
-    );
-  }
-
-  //Crea botón crear nuevo timeline
-  jQuery('<li/>', {
-    id: 'timeline-new-timeline',
-    "data-row": "1",
-    "data-col": col_cont,
-    "data-sizex": "1",
-    "data-sizey": "1",
-    "class": "loadedTimelineStyle",
-    "onclick": "nuevaTimeline()"
-  }).text( "Crear un nuevo timeline".toUpperCase() ).appendTo(
-    jQuery('#user-timelines-loaded-ul')
-  );
-
-  jQuery(".gridster ul").gridster({
-    widget_margins: [10, 10],
-    widget_base_dimensions: [140, 140]
-  });
-
-  //Con esto estamos habilitando el overlay que oculta la pantalla cuando se cargan los timeline del usuario
-  jQuery("#loaded-timelines-container").show();
 
   jQuery('#logInDialog').dialog('close');
 

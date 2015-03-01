@@ -13,7 +13,7 @@ html, body {
   vertical-align: baseline;
   color: #262325;
   font-family: 'Open Sans', sans-serif;
-  font-size: 12pt;
+  font-size: 1.0em;
   overflow: hidden;
 }
 
@@ -43,7 +43,7 @@ div#header {
 div#header h1 {
   float: left;
   color: #EDEDED;
-  font-size: 30pt;
+  font-size: 2.5em;
   padding-left: 20px;
   padding-right: 20px;
   margin: 0px;
@@ -98,6 +98,7 @@ div#header div.headerButtons ul {
 }
 
 div#header div.headerButtons li {
+  height: auto;
   float: left;
 
   padding: 0;
@@ -139,24 +140,53 @@ div#header div.headerButtons ul li a:active {
   color: white;
 }
 
+div#header div.headerButtons li.user_header {
+  background-color: #024252;
+  height: 75px;
+  display: none;
+}
+
+div#header div.headerButtons li.user_header a{
+  height: inherit;
+}
+
+div#header div.headerButtons li.user_header a:hover {
+  background-color: #05B3DE;
+}
+
+div#header div.headerButtons li.user_header a span{
+  vertical-align: middle;
+  display: inline;
+}
+
+div#header div.headerButtons li.user_header a div.flaticon-account4{
+  font-size: 2em;
+  display: inline;
+  vertical-align: middle;
+}
+
+div#header div.headerButtons li.user_header a div.flaticon-account4:before{
+  margin-left: 0px;
+}
+
 div#header div.headerButtons li.logout {
-  background-color: #E64A45;
-  color: #13829f;
+  color: #E6EA85;
+  background-color: #66211F;
   display: none;
 }
 
 div#header div.headerButtons li.logout a {
-  color: #333333;
+  
 }
 
 div#header div.headerButtons ul li.logout a:hover {
-  background-color: #401513;
-  color: white;
+  color: #E6EA3E;
+  background-color: #E64A45;
 }
 
 div#header div.headerButtons ul li.logout a:active {
   background-color: #7F2926;
-  color: white;
+  color: #888C25;
 }
 
 /*
@@ -593,43 +623,56 @@ LOADED TIMELINES CONTAINER
 -------------------------------------------------------------------------------
 */
 
-div#loaded-timelines-container {
-  display: none;
-  z-index: 56;
-}
-
-div#user-timelines-overlay {
+div#user_timelines_container {
   width: 100%;
   height: 100%;
   position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 55;
+  right: 0px;
+  top: 0px;
+  display: none;
+
+  z-index: 60;
 }
 
-div#user-timelines-loaded {
-  z-index: 57;
-  width: 100%;
+div#user_timelines_container div.user_timelines_overlay {
+  position: relative;
+  z-index: 61;
 }
 
-div#user-timelines-loaded div#user-timelines-loaded-title {
-  color: #f5f7f5;
-  background-color: #FFA52D;
-  width: 100%;
-  height: 80px;
-  padding: 0px;
-  text-align: center;
-  font-size: 50px;
-}
-
-div#user-timelines-loaded div#user-timelines-loaded-title div#user-timelines-loaded-title-close{
-  color: #40290B;
-  position: absolute;
-  right: 0;
-  top: 0;
+div#user_timelines_container div.user_timelines_panel {
+  width: 30%;
   height: inherit;
-  padding: 0px 10px 0px 20px;
+  background-color: #13829f;
+  color: #AB643F;
+  float: right;
+  
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  z-index: 62;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_title {
+  background-color: #158CAC;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_title span {
+  font-size: 1.5em;
+  color: #dadada;
+}
+
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close{
+  height: inherit;
+  color: #cacaca;
+  /*background-color: #032D38;*/
   cursor: pointer;
+
+  float: right;
 
   -webkit-transition: all .3s !important;
   -moz-transition: all .3s !important;
@@ -637,15 +680,81 @@ div#user-timelines-loaded div#user-timelines-loaded-title div#user-timelines-loa
   transition: all .3s !important;
 }
 
-div#user-timelines-loaded div#user-timelines-loaded-title div#user-timelines-loaded-title-close:hover{
-  color: #7F5317;
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close:hover{
+  /*background-color: #0A809E;*/
+  color: #fafafa;
 }
 
-div#user-timelines-loaded ul#user-timelines-loaded-ul{
-  
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close div.flaticon-expand39,
+div#user_timelines_container div.user_timelines_panel div.user_timelines_panel_close div.flaticon-expand39:before{
+  font-size: 1.4em;
+  text-align: center;
+  margin-left: 0px;
 }
 
-div#user-timelines-loaded ul#user-timelines-loaded-ul li.loadedTimelineStyle {
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul{
+  color: #fafafa;
+  line-height: 35px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li:first-child{
+  border-bottom: 1px dashed #34C5EB;
+  display: inline;
+  text-align: center;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li{
+  width: 100%;
+  float: left;
+  direction: ltr;
+  border: none;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a {
+  display: block; /*Esto hace que se ocupe todo el espacio*/
+  width: auto;
+  color: #e3e2e5;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 15px; /*0 - top/down | 15 left/right*/
+  vertical-align: middle;
+
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a:hover {
+  background-color: #0A3F50;
+  color: white;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a:active {
+  background-color: #009999;
+  color: white;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a span{
+  vertical-align: middle;
+  display: inline;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a div.flaticon-add182{
+  font-size: 1.6em;
+  display: inline;
+  vertical-align: middle;
+}
+
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li a div.flaticon-add182:before{
+  margin-left: 0px;
+}
+
+/*
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li.loadedTimelineStyle {
   background-color: #0D3349;
   text-align: center;
   font-size: 20px;
@@ -656,20 +765,46 @@ div#user-timelines-loaded ul#user-timelines-loaded-ul li.loadedTimelineStyle {
   transition: all .3s !important;
 }
 
-div#user-timelines-loaded ul#user-timelines-loaded-ul li.loadedTimelineStyle:hover {
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li.loadedTimelineStyle:hover {
   cursor: pointer;
   background-color: #29A0E5;
 }
 
-div#user-timelines-loaded ul#user-timelines-loaded-ul li.loadedTimelineStyle span{
+div#user_timelines_container div.user_timelines_panel ul.user_timelines_list_ul li.loadedTimelineStyle span{
   
 }
+*/
 
 
 
 
 
-.flaticon-close47{
-  font-size: 70px;
-  padding: 0px;
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+LOADED TIMELINES CONTAINER
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+div#user_header_submenu {
+  background-color: #d1d1d1;
+  float: right;
+  width: 200%;
+}
+
+div#user_header_submenu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+div#user_header_submenu li {
+  float: right;
+  display: list-item;
+
+  padding: 0;
+  margin: 0;
+
+  direction: rtl;
 }

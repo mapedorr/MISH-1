@@ -177,8 +177,19 @@ function assignButtonsListeners() {
     closeMenu();
   });
 
-  jQuery("#user-timelines-loaded-title-close").click(function(){
-    jQuery("#loaded-timelines-container").hide();
+  jQuery(".user_timelines_panel_close").click(function(){
+    showTimelinesPanel(false);
+    jQuery(".user_timelines_panel").slideUp();
+    jQuery("#user_timelines_container").fadeOut();
+  });
+
+  jQuery(".user_header").click(function(){
+    showTimelinesPanel(true);
+  });
+
+  jQuery("#user_timelines_panel_new").click(function(){
+    createNewTimeline();
+    //loadSamplesClic()
   });
 
 }
@@ -188,9 +199,6 @@ function assignButtonsListeners() {
  * logs the user.
  */
 function logInBtnAction() {
-  //Delete the timelines previously loaded
-  jQuery('#user-timelines-loaded-ul').empty();
-
   //Hide the showed errors
   showErrorMsg("#errorLogin",false);
 
@@ -225,14 +233,14 @@ function logInBtnAction() {
       }
 
       closeDialog('#logInDialog');
+      jQuery("#user_header_button span").text(username);
+      jQuery(".user_header").show();
       jQuery(".logout").show();
       jQuery(".login").hide();
 
       user_loggedIn = true;
       logged_user_id = userObj.user_id;
       user_timelines = userObj.timelines;
-
-      jQuery('#user-timelines-loaded-ul').empty();
 
       loadUserTimelines();
     });
@@ -304,6 +312,8 @@ function createUserBtnAction() {
 
       user_loggedIn = true;
 
+      jQuery("#user_header_button span").text(newUserObj.username);
+      jQuery(".user_header").show();
       jQuery(".logout").show();
       jQuery(".login").hide();
 
@@ -324,6 +334,21 @@ function logOutBtnAction(){
   logged_user_id = 0;
   user_timelines_count = 0;
 
+  //Remove the user timelines from the timelines panel
+  jQuery(".user_timeline_removable").remove();
+
+  resetTimeruler();
+
+  jQuery("#user_header_button span").text("");
+  jQuery(".user_header").hide();
+  jQuery(".logout").hide();
+  jQuery(".login").show();
+  showTimelinesPanel(false);
+
+  user_loggedIn = false;
+}
+
+function resetTimeruler(){
   //Restore the timeline ruler and canvas variables to defaults
   center_date = moment();
 
@@ -336,11 +361,6 @@ function logOutBtnAction(){
   mishGA.zoomData = getZoomData();
   cellWidth = mishGA.zoomData.initialCellWidth;
   drawTimeRuler();
-
-  jQuery(".logout").hide();
-  jQuery(".login").show();
-
-  user_loggedIn = false;
 }
 
 function readURL(input) {
@@ -473,13 +493,14 @@ function guardarTimeline() {
   }
 }
 
-function abrirTimelineClic(timelineId) {
+function openTimeline(timelineId) {
   readJSonTimeline(timelineId);
-  jQuery("#loaded-timelines-container").hide();
+  showTimelinesPanel(false);
 }
 
-function nuevaTimeline() {
-  jQuery("#loaded-timelines-container").hide();
+function createNewTimeline() {
+  resetTimeruler();
+  showTimelinesPanel(false);
 }
 
 function closeMenu() {

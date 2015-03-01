@@ -20,6 +20,12 @@
         <!-- <h3>Mi Sitio en la Historia</h3> -->
         <div class="headerButtons">
             <ul>
+                <li class="user_header">
+                    <a id="user_header_button" href="#">
+                        <div class="flaticon-account4"></div>
+                        <span></span>
+                    </a>
+                </li>
                 <li class="login">
                     <a href="#" id="buttLogIn">Soy usuario</a>
                 </li>
@@ -44,6 +50,36 @@
         </div>
 
         <div id="timeline-container"></div>
+
+        <div id="user_timelines_container">
+            <div class="ui-widget-overlay user_timelines_overlay"></div>
+            <div class="user_timelines_panel">
+                <div class="user_timelines_panel_title">
+                    <span>Mis líneas de tiempo</span>
+                    <div class="user_timelines_panel_close">
+                        <div class="flaticon-expand39"></div>
+                    </div>
+                </div>
+                <ul class="user_timelines_list_ul">
+                    <li>
+                        <a id="user_timelines_panel_new" href="#">
+                            <div class="flaticon-add182"></div>
+                            <span>
+                                Nueva línea de tiempo
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTHER ELEMENTS -->
+    <div id="user_header_submenu">
+        <ul>
+            <li>xxx</li>
+            <li>yyy</li>
+        </ul>
     </div>
 
     <!-- FOOTER -->
@@ -64,22 +100,12 @@
         </div>
     </div>
 
+    <!-- ............................................................ -->
     <!-- [START] EXTERNAL PAGES -->
 
     <div id="canvasContextMenu" oncontextmenu="return false"></div>
 
-    <div id="loaded-timelines-container">
-        <div id="user-timelines-overlay" class="ui-widget-overlay"></div>
-        <div id="user-timelines-loaded" class="gridster">
-            <div id="user-timelines-loaded-title">
-                <span>Mis líneas de tiempo</span>
-                <div id="user-timelines-loaded-title-close">
-                    <div class="glyph-icon flaticon-close47"></div>
-                </div>
-            </div>
-            <ul id="user-timelines-loaded-ul"></ul>
-        </div>
-    </div>
+    
 
     <!--DIV for the Create New Event page-->
     <div id="newEventDialog"></div>
@@ -117,6 +143,7 @@
     <!-- MISH -->
     <script type="text/javascript" src="javascript/mish/messages.js"></script>
     <script type="text/javascript" src="javascript/mish/utilities.js"></script>
+    <script type="text/javascript" src="javascript/mish/effects.js"></script>
     <script type="text/javascript" src="javascript/mish/calculations.js"></script>
     <script type="text/javascript" src="javascript/mish/zoomControl.js"></script>
     <script type="text/javascript" src="javascript/mish/daysCtrl.js"></script>
