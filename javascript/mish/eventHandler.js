@@ -343,12 +343,24 @@ function logOutBtnAction(){
   user_loggedIn = false;
 }
 
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      saveImage(e.target.result);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 /**
  * Function that validates the fields for Creating a New Event and then
  * proceeds to send the data to the database.
  * 
  */
 function createMISHEventBtnAction() {
+  readURL(document.getElementById("eventImg"));
+
   //Hide the showed errors
   showErrorMsg("#errorNewEvent",false);
 

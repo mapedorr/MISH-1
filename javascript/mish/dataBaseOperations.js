@@ -217,3 +217,22 @@ function colorSchemeXMLSuccessRead(xml) {
 function colorSchemeXMLReadError() {
   confirm("Hubo un error al intentar cargar el archivo XML para el color scheme");
 }
+
+
+
+
+function saveImage(imageData){
+  jQuery.ajax({
+    "url": "PHP/imageHandling.php",
+    "type": "POST",
+    "data": {
+      "imageData": imageData
+    }
+  }).done(function (data) {
+    console.log("IMAGEN GUARDADA");
+    return;
+  }).fail(function(){
+    console.log("ERROR AL GUARDAR IMAGEN");
+    return;
+  });
+}
