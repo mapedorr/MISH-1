@@ -299,3 +299,14 @@ function calculateXPosOfEventWeeks(groupTime,eventTime){
   var difference = moment(eventTime).diff(moment(groupTime),'days');
   return difference * cellWidth;
 }
+
+function changeOfLevelWeeks(lastLevel, centerCellObj){
+  if(lastLevel === "MONTHS" && this.name === "WEEKS"){
+    console.log("centerCellObj.posX");
+    console.log(centerCellObj.posX, centerCellObj.idText);
+
+
+    // centerCellObj.posX = null;
+    centerCellObj.idText = "01" + centerCellObj.idText;
+  }
+}

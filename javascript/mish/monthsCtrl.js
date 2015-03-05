@@ -5,9 +5,34 @@
  * @returns {undefined}
  */
 function fillTimeRulerMonths(dateOfReference, xPosDiff) {
+  //Así viene la fecha y el x pos cuando llega desde semanas:
+  //      Object { posX: 957.2999877929688, idText: "02032015" }
 
   //Calculate the center of the window
   var center = jQuery(window).width() / 2;
+
+  /*
+  if(mishGA.lastZoomLevelName === "WEEKS"){
+    //If the last zoom LEVEL was WEEKS then:
+    //0. "xPosDiff" is not necessary in this case.
+    xPosDiff = null;
+
+    //1. Get number of days that has the nearest month to the screen center (reference date).
+    var daysInMonth = dateOfReference.clone().endOf("month").date();
+
+    //2. Get the day number in the nearest month to the screen center (reference date).
+    var dayNumber = dateOfReference.date();
+
+    //3. Get the month number (0 - 11) of the nearest month to the screen center  (reference date).
+    var monthNumber = dateOfReference.month();
+
+    //4. Calculate the center X point: The amount of pixels from the first day of the year to the day of the reference date.
+    center -= (monthNumber*cellWidth) + ( (cellWidth/daysInMonth) * dayNumber );
+
+    //5. Make the reference date as the first day of the year
+    dateOfReference.startOf('year');
+  }
+  */
 
   if (xPosDiff !== null) {
     center -= center - xPosDiff;
@@ -19,8 +44,8 @@ function fillTimeRulerMonths(dateOfReference, xPosDiff) {
 
   var firstGroupDate = dateOfReference.clone().subtract(10, "years");
 
-  var daysFromFirstGroup = dateOfReference.diff(firstGroupDate, "months");
-  var initialXPos = ((( (daysFromFirstGroup + dateOfReference.date()) * cellWidth) - cellWidth) * -1) + (center);
+  var monthsFromFirstGroup = dateOfReference.diff(firstGroupDate, "months");
+  var initialXPos = ((( (monthsFromFirstGroup + dateOfReference.date()) * cellWidth) - cellWidth) * -1) + (center);
 
   var groupToDraw = firstGroupDate.clone().startOf("year");
   var xPositionOfGroup = initialXPos - mishGA.timeRulerXPos;
@@ -267,4 +292,28 @@ function calculateXPosOfEventMonths(groupTime,eventTime){
   var difference = moment(eventTime).diff(moment(groupTime),'days');
   var daysWidth = cellWidth / 30;
   return difference * daysWidth;
+}
+
+function changeOfLevelMonths(lastLevel, centerCellObj){
+  if(lastLevel === "WEEKS"){
+    var center = jQuery(window).width() / 2;
+    var dateOfReference = moment('' + centerCellObj.idText, "DDMMYYYY");
+
+    //If the last zoom LEVEL was WEEKS then:
+
+    //1. Get number of days that has the nearest month to the screen center (reference date).
+    var daysInMonth = dateOfReference.clone().endOf("month").date();
+
+    //2. Get the day number in the nearest month to the screen center (reference date).
+    var dayNumber = dateOfReference.date();
+
+    //3. Get the month number (0 - 11) of the nearest month to the screen center  (reference date).
+    var monthNumber = dateOfReference.month();
+
+    //4. Calculate the amount of pixels from the first day of the year to the day of the reference date.
+    centerCellObj.posX = center - ( (monthNumber*cellWidth) + ( (cellWidth/daysInMonth) * dayNumber ) );
+    
+    //5. Make the reference date as the first day of the year
+    centerCellObj.idText = (dateOfReference.startOf('year')).format("DDMMYYYY");
+  }
 }

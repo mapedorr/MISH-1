@@ -272,3 +272,7 @@ function calculateXPosOfEventDays(groupTime,eventTime){
   var difference = moment(eventTime).diff(moment(groupTime),'days');
   return difference * cellWidth;
 }
+
+function changeOfLevelDays(lastLevel, centerCellObj){
+  // @TODO Maybe not
+}

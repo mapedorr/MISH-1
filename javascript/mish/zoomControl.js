@@ -23,17 +23,24 @@ var zoomSubLevels = {
     }
     , 1: {
       id: 1,
+      name: 'MONTHS',
       parentId: 5,
       initialCellWidth: 20,
       lastCellWidth: 60,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerMonths(nearestCellToCenterDate, nearestCellToCenterPosX);
-      }, zoomTimeRuler: function (nearestCellToCenterObj, mouseScrollDelta) {
+      },
+      zoomTimeRuler: function (nearestCellToCenterObj, mouseScrollDelta) {
         zoomTimeRulerMonths(nearestCellToCenterObj, mouseScrollDelta);
-      }, addGroupToTimeruler: function (evaluateAdditionToRight) {
+      },
+      addGroupToTimeruler: function (evaluateAdditionToRight) {
         addGroupToTimerulerMonths(evaluateAdditionToRight);
-      }, calculateXPosOfEvent: function (groupTime,eventTime) {
+      },
+      calculateXPosOfEvent: function (groupTime,eventTime) {
         return calculateXPosOfEventMonths(groupTime,eventTime);
+      },
+      changeOfLevel: function(lastLevel, centerCellObj){
+        changeOfLevelMonths.call(this, lastLevel, centerCellObj);
       }
     }, 2: {
       id: 'NEXT',
@@ -68,32 +75,46 @@ var zoomSubLevels = {
     }
     , 1: {
       id: 1,
+      name: 'WEEKS',
       parentId: 6,
       initialCellWidth: 9,
       lastCellWidth: 19,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerWeeks(nearestCellToCenterDate, nearestCellToCenterPosX);
-      }, zoomTimeRuler: function (nearestCellToCenterObj, mouseScrollDelta) {
+      },
+      zoomTimeRuler: function (nearestCellToCenterObj, mouseScrollDelta) {
         zoomTimeRulerWeeks(nearestCellToCenterObj, mouseScrollDelta);
-      }, addGroupToTimeruler: function (evaluateAdditionToRight) {
+      },
+      addGroupToTimeruler: function (evaluateAdditionToRight) {
         addGroupToTimerulerWeeks(evaluateAdditionToRight);
-      }, calculateXPosOfEvent: function (groupTime,eventTime) {
+      },
+      calculateXPosOfEvent: function (groupTime,eventTime) {
         return calculateXPosOfEventWeeks(groupTime,eventTime);
+      },
+      changeOfLevel: function(lastLevel, centerCellObj){
+        changeOfLevelWeeks.call(this, lastLevel, centerCellObj);
       }
     }
     , 2: {
       id: 2,
+      name: 'DAYS',
       parentId: 6,
       initialCellWidth: 20,
       lastCellWidth: 50,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerDays(nearestCellToCenterDate, nearestCellToCenterPosX);
-      }, zoomTimeRuler: function (nearestCellToCenterObj, mouseScrollDelta) {
+      },
+      zoomTimeRuler: function (nearestCellToCenterObj, mouseScrollDelta) {
         zoomTimeRulerDays(nearestCellToCenterObj, mouseScrollDelta);
-      }, addGroupToTimeruler: function (evaluateAdditionToRight) {
+      },
+      addGroupToTimeruler: function (evaluateAdditionToRight) {
         addGroupToTimerulerDays(evaluateAdditionToRight);
-      }, calculateXPosOfEvent: function (groupTime,eventTime) {
+      },
+      calculateXPosOfEvent: function (groupTime,eventTime) {
         return calculateXPosOfEventDays(groupTime,eventTime);
+      },
+      changeOfLevel: function(lastLevel, centerCellObj){
+        changeOfLevelDays.call(this, lastLevel, centerCellObj);
       }
     }, 3: {
       id: 'NEXT',

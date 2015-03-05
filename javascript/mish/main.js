@@ -12,7 +12,8 @@ var mishGA = {
   /*Attributes for zoom control*/
   currentZoomLevel: 6,
   currentZoomSubLevel: 2,
-  zoomData: null
+  zoomData: null,
+  lastZoomLevelName: null
 };
 
 /**
