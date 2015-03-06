@@ -93,6 +93,8 @@ function findNearestCellToCenter() {
 
   var nearestCellToCenter = jQuery(cellsInGroup[nearestCellToCenterIndex]);
   return {
+    groupWidth: nearestCellToCenter.width(),
+    groupPosX: xPosOfGroup,
     posX: nearestCellToCenter.position().left + xPosOfGroup,//Get the nearest cell to center X position for accurate calculations
     idText: (nearestCellToCenter.attr('id').split('-')[1])//Get the nearest cell to center ID for create a moment()
   };

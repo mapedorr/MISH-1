@@ -302,11 +302,35 @@ function calculateXPosOfEventWeeks(groupTime,eventTime){
 
 function changeOfLevelWeeks(lastLevel, centerCellObj){
   if(lastLevel === "MONTHS" && this.name === "WEEKS"){
-    console.log("centerCellObj.posX");
-    console.log(centerCellObj.posX, centerCellObj.idText);
+    var center = jQuery(window).width() / 2;
+    var centerMonthMoment = moment('' + centerCellObj.idText, "MMYYYY");
 
+    //Calculate the date to use as reference for drawing in weeks
 
-    // centerCellObj.posX = null;
-    centerCellObj.idText = "01" + centerCellObj.idText;
+    //1. Calculate the size of each day in the month
+    //This is done here to ensure that the width of the day is the same in all the cases
+    var dayWidth = centerCellObj.groupWidth / centerMonthMoment.clone().endOf("month").date();
+
+    //2. Get the distance from the X position of the month to the screen center
+    var distanceToCenter = center - centerCellObj.posX;
+    if(distanceToCenter < 0){
+      //The calculation of the day will be made with the nearest month to the center from the left.
+      //For that reason, if the distance is negative it is necessary to subtract a month
+      centerCellObj.idText = centerMonthMoment.subtract(1, 'month').format("MMYYYY");
+    }
+
+    //3. Get the amount of days of the nearest month (from LEFT) to the screen center
+    var daysOfMonth = centerMonthMoment.clone().endOf("month").date();
+
+    //4. Get the number of days contained in the distance to the center
+    var numberOfDays = Math.ceil(Math.abs(distanceToCenter) / dayWidth);
+    if(distanceToCenter < 0){
+      //If the nearest month to the center is right to it, it is necessary to subtract the
+      //number of days obtained to the number of days of the previous month
+      numberOfDays = daysOfMonth - numberOfDays;
+    }
+
+    centerCellObj.posX = null;
+    centerCellObj.idText = ((numberOfDays > 9) ? "" + numberOfDays : "0" + numberOfDays) + centerCellObj.idText;
   }
 }

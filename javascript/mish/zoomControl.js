@@ -26,7 +26,7 @@ var zoomSubLevels = {
       name: 'MONTHS',
       parentId: 5,
       initialCellWidth: 20,
-      lastCellWidth: 60,
+      lastCellWidth: 150,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerMonths(nearestCellToCenterDate, nearestCellToCenterPosX);
       },

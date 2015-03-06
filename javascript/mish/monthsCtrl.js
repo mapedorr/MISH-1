@@ -11,29 +11,6 @@ function fillTimeRulerMonths(dateOfReference, xPosDiff) {
   //Calculate the center of the window
   var center = jQuery(window).width() / 2;
 
-  /*
-  if(mishGA.lastZoomLevelName === "WEEKS"){
-    //If the last zoom LEVEL was WEEKS then:
-    //0. "xPosDiff" is not necessary in this case.
-    xPosDiff = null;
-
-    //1. Get number of days that has the nearest month to the screen center (reference date).
-    var daysInMonth = dateOfReference.clone().endOf("month").date();
-
-    //2. Get the day number in the nearest month to the screen center (reference date).
-    var dayNumber = dateOfReference.date();
-
-    //3. Get the month number (0 - 11) of the nearest month to the screen center  (reference date).
-    var monthNumber = dateOfReference.month();
-
-    //4. Calculate the center X point: The amount of pixels from the first day of the year to the day of the reference date.
-    center -= (monthNumber*cellWidth) + ( (cellWidth/daysInMonth) * dayNumber );
-
-    //5. Make the reference date as the first day of the year
-    dateOfReference.startOf('year');
-  }
-  */
-
   if (xPosDiff !== null) {
     center -= center - xPosDiff;
   }
@@ -232,7 +209,7 @@ function fillDateRangeMonths(begin, end, xPos, startDate, drawSeparator, groupID
     if (i === begin && drawSeparator === true) {
       createTimelineCell(cellID, xPos, separatorDateCssClass, theDay.format('YYYY'), groupID, cellWidth);
     } else {
-      createTimelineCell(cellID, xPos, normalDateCssClass, theDay.format('MMMM'), groupID, cellWidth);
+      createTimelineCell(cellID, xPos, normalDateCssClass, theDay.format('MMM'), groupID, cellWidth);
     }
     daysToAdd++;
     xPos = xPos + cellWidth;
@@ -246,7 +223,7 @@ function fillDateRangeMonths(begin, end, xPos, startDate, drawSeparator, groupID
  * @param delta
  */
 function zoomTimeRulerMonths(centerCellObj, delta) {
-//Assign the new WIDTH for each cell and each group and also the new LEFT position of each cell.
+  //Assign the new WIDTH for each cell and each group and also the new LEFT position of each cell.
   mishGA.timeRulerGroups.forEach(function (value, index) {
     var childCount = 0;
     var xPos = 0;
