@@ -15,18 +15,13 @@ var zoomSubLevels = {
   "CENTURY": {},
   "DECADE": {},
   "YEAR": {
-    0: {
-      id: 'PREV',
-      parentId: 5,
-      initialCellWidth: 1,
-      lastCellWidth: 1
-    }
-    , 1: {
+    1: {
       id: 1,
       name: 'MONTHS',
       parentId: 5,
-      initialCellWidth: 20,
+      initialCellWidth: 30,
       lastCellWidth: 150,
+      isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerMonths(nearestCellToCenterDate, nearestCellToCenterPosX);
       },
@@ -58,11 +53,24 @@ var zoomSubLevels = {
     , set currentSubLevel(levelID) {
       this.$currentSubLevel = levelID;
     }, set scrollAmount(newScrollAmount) {
+      var lastScrollAmount = this.$scrollAmount;
       this.$scrollAmount = newScrollAmount;
+      this[this.$currentSubLevel].isTheLast = false;
+
       if (this.$scrollAmount < this[this.$currentSubLevel].initialCellWidth) {
-        this.$currentSubLevel--;
+        if(this[this.$currentSubLevel - 1]){
+          this.$currentSubLevel--;
+        }else{
+          this[this.$currentSubLevel].isTheLast = true;
+          this.$scrollAmount = lastScrollAmount;
+        }
       } else if (this.$scrollAmount > this[this.$currentSubLevel].lastCellWidth) {
-        this.$currentSubLevel++;
+        if(this[this.$currentSubLevel + 1]){
+          this.$currentSubLevel++;
+        }else{
+          this[this.$currentSubLevel].isTheLast = true;
+          this.$scrollAmount = lastScrollAmount;
+        }
       }
     }
   },
@@ -79,6 +87,7 @@ var zoomSubLevels = {
       parentId: 6,
       initialCellWidth: 9,
       lastCellWidth: 19,
+      isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerWeeks(nearestCellToCenterDate, nearestCellToCenterPosX);
       },
@@ -101,6 +110,7 @@ var zoomSubLevels = {
       parentId: 6,
       initialCellWidth: 20,
       lastCellWidth: 50,
+      isTheLast: false,
       fillTimeRuler: function (nearestCellToCenterDate, nearestCellToCenterPosX) {
         fillTimeRulerDays(nearestCellToCenterDate, nearestCellToCenterPosX);
       },
@@ -116,27 +126,36 @@ var zoomSubLevels = {
       changeOfLevel: function(lastLevel, centerCellObj){
         changeOfLevelDays.call(this, lastLevel, centerCellObj);
       }
-    }, 3: {
-      id: 'NEXT',
-      parentId: 6,
-      initialCellWidth: 51,
-      lastCellWidth: 51
     },
     $scrollAmount: 0,
     $currentSubLevel: 0,
     initialSubLevel: 1,
-    lastSubLevel: 2
-    , get zoomSubLevel() {
+    lastSubLevel: 2,
+    get zoomSubLevel() {
       return this[this.$currentSubLevel];
-    }
-    , set currentSubLevel(levelID) {
+    },
+    set currentSubLevel(levelID) {
       this.$currentSubLevel = levelID;
-    }, set scrollAmount(newScrollAmount) {
+    },
+    set scrollAmount(newScrollAmount) {
+      var lastScrollAmount = this.$scrollAmount;
       this.$scrollAmount = newScrollAmount;
+      this[this.$currentSubLevel].isTheLast = false;
+
       if (this.$scrollAmount < this[this.$currentSubLevel].initialCellWidth) {
-        this.$currentSubLevel--;
+        if(this[this.$currentSubLevel - 1]){
+          this.$currentSubLevel--;
+        }else{
+          this[this.$currentSubLevel].isTheLast = true;
+          this.$scrollAmount = lastScrollAmount;
+        }
       } else if (this.$scrollAmount > this[this.$currentSubLevel].lastCellWidth) {
-        this.$currentSubLevel++;
+        if(this[this.$currentSubLevel + 1]){
+          this.$currentSubLevel++;
+        }else{
+          this[this.$currentSubLevel].isTheLast = true;
+          this.$scrollAmount = lastScrollAmount;
+        }
       }
     }
   },
@@ -158,47 +177,4 @@ function getZoomData() {
     zoomSubLevelObj.scrollAmount = cellWidth;
   }
   return zoomSubLevelObj.zoomSubLevel;
-}
-
-/**
- * Function that updates the level of Zoom for the application.
- */
-function updateZoomLevels(){
-  if (mishGA.zoomData.id !== mishGA.currentZoomSubLevel
-      || mishGA.zoomData.parentId !== mishGA.currentZoomLevel) {
-    //The ZOOM SUB LEVEL changes, do something
-    zoomSubLevelChange = true;
-    console.log("ZOOM SUB LEVEL CHANGE");
-
-    if (mishGA.zoomData.id === 'PREV') {
-      //It's time to change the Zoom LEVEL
-      //The ZOOM LEVEL changes, do something
-      zoomLevelChange = true;
-      console.log("ZOOM LEVEL CHANGE");
-
-      mishGA.currentZoomLevel--;
-      mishGA.currentZoomSubLevel = zoomSubLevels[zoomLevels[mishGA.currentZoomLevel]].lastSubLevel;
-      cellWidth = null;
-      mishGA.zoomData = getZoomData();
-    } else if (mishGA.zoomData.id === 'NEXT') {
-      //The ZOOM LEVEL changes, do something
-      zoomLevelChange = true;
-      console.log("ZOOM LEVEL CHANGE");
-
-      //It's time to change the Zoom LEVEL
-      mishGA.currentZoomLevel++;
-      mishGA.currentZoomSubLevel = zoomSubLevels[zoomLevels[mishGA.currentZoomLevel]].initialSubLevel;
-      cellWidth = null;
-      mishGA.zoomData = getZoomData();
-    }
-
-    mishGA.currentZoomSubLevel = mishGA.zoomData.id;
-    mishGA.currentZoomLevel = mishGA.zoomData.parentId;
-
-    if (delta > 0) {
-      cellWidth = mishGA.zoomData.initialCellWidth;
-    } else {
-      cellWidth = mishGA.zoomData.lastCellWidth;
-    }
-  }
 }

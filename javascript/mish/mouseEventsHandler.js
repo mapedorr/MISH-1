@@ -75,10 +75,11 @@ function mouseScrollEvent(e) {
   cellWidth += delta;
   mishGA.zoomData = getZoomData();
 
+  if(mishGA.zoomData.isTheLast === true){
+    cellWidth -= delta;
+    return;
+  }
 
-
-
-  //      updateZoomLevels();
   if (mishGA.zoomData.id !== mishGA.currentZoomSubLevel
     || mishGA.zoomData.parentId !== mishGA.currentZoomLevel) {
     //The zoom SUB-LEVEL changes, do something!
@@ -112,11 +113,6 @@ function mouseScrollEvent(e) {
       cellWidth = mishGA.zoomData.lastCellWidth;
     }
   }
-
-
-
-
-
 
   var centerCellObj = findNearestCellToCenter();
   // console.log("centerCellObj", centerCellObj);

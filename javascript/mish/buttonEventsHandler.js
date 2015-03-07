@@ -208,11 +208,17 @@ function resetTimeruler(){
   drawTimeRuler();
 }
 
-function readURL(input) {
+function readURL(input, callback) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {
-      saveImage(e.target.result);
+      var res = new Image();
+      res.addEventListener('load', function(){
+        callback(this);
+      }, false);
+      res.src = e.target.result;
+
+      // saveImage(e.target.result);
     };
     reader.readAsDataURL(input.files[0]);
   }
@@ -224,8 +230,6 @@ function readURL(input) {
  * 
  */
 function createMISHEventBtnAction() {
-  readURL(document.getElementById("eventImg"));
-
   //Hide the showed errors
   showErrorMsg("#errorNewEvent",false);
 
@@ -267,9 +271,21 @@ function createMISHEventBtnAction() {
     var eventID = (eventsArrayLastPos === 0) ? 1 : mishJsonObjs.eventsJsonElement[eventsArrayLastPos - 1].id + 1;
     newEventObj.id = eventID;
 
-    //Add the created event object to the array of events of the timeline
-    mishJsonObjs.eventsJsonElement.push(newEventObj);
+    var imageOfEvent = document.getElementById("eventImg");
+
+    if(imageOfEvent.files && imageOfEvent.files[0]){
+      readURL(imageOfEvent, function(imageData){
+        newEventObj.image = imageData;
+        //Add the created event object to the array of events of the timeline
+        mishJsonObjs.eventsJsonElement.push(newEventObj);
+
+      });
+    }else{
+      mishJsonObjs.eventsJsonElement.push(newEventObj);
+    }
+
     jQuery('#newEventDialog').dialog('close');
+
   }
 }
 

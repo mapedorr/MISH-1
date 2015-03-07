@@ -103,17 +103,17 @@ function addGroupToTimerulerMonths(evaluateAdditionToRight) {
       //It is necessary to add a group of cells to the right of the ruler >>>
 
       //1. Get the date for the new group
-      var newGroupDate = moment(jQuery(lastDateOfTimeRuler.children('.date')[0]).attr('id').split('-')[1], "DDMMYYYY").add(1, "month");
+      var newGroupDate = moment(jQuery(lastDateOfTimeRuler.children('.date')[0]).attr('id').split('-')[1], "MMYYYY").add(1, "year");
 
       //2. Get the X position for the first date of the new group
-      var widthOfNewGroup = newGroupDate.clone().endOf("month").date() * cellWidth;
+      var widthOfNewGroup = 12 * cellWidth;
       var xPosNewLastDate = xPosLastDate + lastDateOfTimeRuler.width();
 
       //3. Create the new group of cells)
       fillDateRangeMonths(1,//begin: All months start with 1
-        widthOfNewGroup / cellWidth,//end
+        12,//end
         0,//Initial xPos of the inner cells
-        newGroupDate.clone().startOf("month"),//startDate
+        newGroupDate.clone().startOf("year"),//startDate
         true,//drawSeparator
         createRulerGroup(newGroupDate.format('MMYYYY'),//groupID
           widthOfNewGroup,
@@ -135,9 +135,9 @@ function addGroupToTimerulerMonths(evaluateAdditionToRight) {
       });
 
       //Put a special style in the center date of the timeline
-      var centerDateCellID = center_date.format('DDMMYYYY');
-      jQuery("#mish-cell-" + centerDateCellID).attr("class", centerDateCssClass);
-      jQuery("#mish-label-" + centerDateCellID).text(center_date.format('DD-MMMM-YYYY'));
+      //    var centerDateCellID = center_date.format('DDMMYYYY');
+      //    jQuery("#mish-cell-" + centerDateCellID).attr("class", centerDateCssClass);
+      //    jQuery("#mish-label-" + centerDateCellID).text(center_date.format('DD-MMMM-YYYY'));
     }
   } else {
     //The time ruler was moved to the right, so....LETS ADD A GROUP TO THE LEFT
@@ -151,17 +151,17 @@ function addGroupToTimerulerMonths(evaluateAdditionToRight) {
       //It is necessary to add a group of cells to the left of the ruler >>>
 
       //1. Get the date for the new group
-      var newGroupDate = moment(jQuery(firstDateOfTimeRuler.children('.date')[0]).attr('id').split('-')[1], "DDMMYYYY").subtract(1, "month");
+      var newGroupDate = moment(jQuery(firstDateOfTimeRuler.children('.date')[0]).attr('id').split('-')[1], "MMYYYY").subtract(1, "year");
 
       //2. Get the X position for the first date of the new group
-      var widthOfNewGroup = newGroupDate.clone().endOf("month").date() * cellWidth;
+      var widthOfNewGroup = 12 * cellWidth;
       var xPosNewFirstDate = xPosFirstDate - widthOfNewGroup;
 
       //3. Create the new group of cells)
       fillDateRangeMonths(1,//begin: All months start with 1
-        widthOfNewGroup / cellWidth,//end
+        12,//end
         0,//Initial xPos of the inner cells
-        newGroupDate.clone().startOf("month"),//startDate
+        newGroupDate.clone().startOf("year"),//startDate
         true,//drawSeparator
         createRulerGroup(newGroupDate.format('MMYYYY'),//groupID
           widthOfNewGroup,
@@ -183,9 +183,9 @@ function addGroupToTimerulerMonths(evaluateAdditionToRight) {
       });
 
       //Put a special style in the center date of the timeline
-      var centerDateCellID = center_date.format('DDMMYYYY');
-      jQuery("#mish-cell-" + centerDateCellID).attr("class", centerDateCssClass);
-      jQuery("#mish-label-" + centerDateCellID).text(center_date.format('DD-MMMM-YYYY'));
+      //    var centerDateCellID = center_date.format('DDMMYYYY');
+      //    jQuery("#mish-cell-" + centerDateCellID).attr("class", centerDateCssClass);
+      //    jQuery("#mish-label-" + centerDateCellID).text(center_date.format('DD-MMMM-YYYY'));
     }
   }
 }

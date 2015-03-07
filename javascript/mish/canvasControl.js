@@ -89,6 +89,11 @@ function canvasApp(x, y) {
           if (eventXPos) {
             drawLineToTimeline(eventXPos, globalPosY);
             drawEvent(eventXPos, globalPosY, eventObj.title);
+            if(eventObj.image){
+              // var widthScale = 100 / eventObj.image.width;
+              // var heightScale = 100 / eventObj.image.height;
+              context.drawImage(eventObj.image, eventXPos, globalPosY, 100, 100);
+            }
           }
         }
 
